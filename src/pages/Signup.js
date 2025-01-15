@@ -15,7 +15,7 @@ const SignupForm = () => {
         setCurrentCaption(index);
       };
       
-      
+
   return (
     <div className="flex h-screen bg-gray-900 text-white p-3">
 
@@ -106,6 +106,7 @@ const SignupForm = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 
