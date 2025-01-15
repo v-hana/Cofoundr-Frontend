@@ -101,7 +101,6 @@ const SignupForm = () => {
         <div className="flex space-x-4">
           <button className="flex items-center space-x-2 bg-gray-800 text-gray-300 px-4 py-2 rounded hover:bg-gray-700">
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Google" className="h-5" />
-            <span>Google</span>
           </button>
         </div>
       </div>
