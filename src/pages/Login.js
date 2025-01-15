@@ -9,6 +9,7 @@ const LoginForm = () => {
     <div className="flex h-screen bg-gray-900 text-white p-3">
       {/* Left Section: Swiper */}
       <div className="w-1/2 relative rounded-lg overflow-hidden shadow-lg m-4">
+        
         <Swiper
           modules={[Pagination]}
           pagination={{
