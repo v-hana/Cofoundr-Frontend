@@ -7,9 +7,9 @@ import { Pagination } from "swiper/modules";
 
 const LoginForm = () => {
   return (
-    <div className="flex h-screen bg-gray-900 text-white p-3">
+    <div className="flex h-screen bg-[#2D2638] text-white p-2">
       {/* Left Section: Swiper */}
-      <div className="w-1/2 relative rounded-lg overflow-hidden shadow-lg m-4">
+      <div className="w-1/2 relative rounded-lg overflow-hidden bg-[#775F9E] shadow-lg m-3">
         
         <Swiper
           modules={[Pagination]}
@@ -80,24 +80,36 @@ const LoginForm = () => {
 
       {/* Right Section: Form */}
       <div className="w-1/2 flex flex-col justify-center items-center px-10">
-        <h2 className="text-3xl font-bold mb-4">Create an account</h2>
-        <p className="text-gray-400 mb-8">
+        <h2 className="text-3xl font-bold mb-2">Create an account</h2>
+        <p className="text-gray-400 mb-4">
           Doesn't have an account yet?{" "}
-          <a href="/login" className="text-indigo-400">
+          <a href="/login" className="text-[#6D55B5] underline">
             Sign Up
           </a>
         </p>
         <form className="w-full max-w-md">
+        <input
+            type="Name"
+            placeholder="Full Name"
+            className="w-full bg-[#3B364C] text-gray-300 p-3 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
           <input
             type="email"
             placeholder="Email"
-            className="w-full bg-gray-800 text-gray-300 p-3 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full bg-[#3B364C] text-gray-300 p-3 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <div className="relative mb-4">
             <input
               type="password"
               placeholder="Enter your password"
-              className="w-full bg-gray-800 text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full bg-[#3B364C] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+          <div className="relative mb-4">
+            <input
+              type="password"
+              placeholder="Confirm password"
+              className="w-full bg-[#3B364C] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div className="flex items-center mb-6">
@@ -108,25 +120,30 @@ const LoginForm = () => {
             />
             <label htmlFor="terms" className="text-gray-400 ml-2 text-sm">
               I agree to the{" "}
-              <a href="/terms" className="text-indigo-400">
+              <a href="/terms" className="text-[#6D55B5] underline">
                 Terms & Conditions
               </a>
             </label>
           </div>
           <button
             type="submit"
-            className="w-full bg-indigo-500 text-white p-3 rounded hover:bg-indigo-600 transition"
+            className="w-full bg-[#6D55B5] text-white p-3 rounded hover:bg-indigo-600 transition"
           >
-            Login
+            Create Account
           </button>
         </form>
-        <div className="my-6 text-gray-500">Or Login with</div>
+        <div className="flex items-center gap-2">
+        <hr className="w-40 h-px border-[#7A7685]"/>
+        <div className="my-6 text-gray-500">Or create with</div>
+        <hr className="w-40 h-px border-[#7A7685]"/>
+        </div>
+        
         <div>
-          <button className="w-full bg-gray-800 text-gray-300 p-3 rounded hover:bg-gray-700 transition flex items-center justify-center space-x-2">
+          <button className="w-full border-2 border-[#7A7685] rounded px-48 py-2">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png"
               alt="Google"
-              className="h-5 "
+              className="h-5"
             />
             
           </button>
