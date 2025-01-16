@@ -164,7 +164,6 @@ const LoginForm = () => {
               alt="Google"
               className="h-5"
             />
-            
           </button>
         </div>
       </div>
