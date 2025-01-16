@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../redux/authSlice";
 
 const LoginForm = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { error, loading } = useSelector((state) => state.auth);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginUser({ email, password }));
+  };
+
   return (
     <div
       className="flex h-screen bg-cover bg-[#2D2638] bg-center items-center justify-center"
@@ -18,43 +30,36 @@ const LoginForm = () => {
             Sign up
           </a>
         </p>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             type="email"
             placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full bg-[#3B364C] text-gray-300 p-3 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <div className="relative mb-4">
             <input
               type="password"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-[#3B364C] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
-          <div className="flex items-center mb-6">
-            <input
-              type="checkbox"
-              id="terms"
-              className="h-4 w-4 text-indigo-500 focus:ring-indigo-400 focus:ring-2 rounded"
-            />
-            <label htmlFor="terms" className="text-gray-400 ml-2 text-sm">
-              I agree to the{" "}
-              <a href="/terms" className="text-[#6D55B5] underline">
-                Terms & Conditions
-              </a>
-            </label>
-          </div>
+          {error && <p className="text-red-500 mb-4">{error}</p>}
           <button
             type="submit"
             className="w-full bg-[#6D55B5] text-white p-3 rounded hover:bg-indigo-600 transition"
+            disabled={loading}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
         <div className="flex items-center gap-2">
-        <hr className="w-40 h-px border-[#7A7685]"/>
-        <div className="my-6 text-gray-500">Or login with</div>
-        <hr className="w-40 h-px border-[#7A7685]" />
+          <hr className="w-40 h-px border-[#7A7685]" />
+          <div className="my-6 text-gray-500">Or login with</div>
+          <hr className="w-40 h-px border-[#7A7685]" />
         </div>
         <div>
           <button className="w-full border-2 border-[#7A7685] text-gray-300 p-3 rounded hover:bg-gray-600 transition flex items-center justify-center space-x-2">

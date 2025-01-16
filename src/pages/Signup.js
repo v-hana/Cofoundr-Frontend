@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
-
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";  // Import useNavigate for redirection
 
 const SignupForm = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();  // Initialize useNavigate
+  const { error, loading } = useSelector((state) => state.auth);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      return; // Passwords do not match; no need to dispatch action
+    }
+    dispatch(registerUser({ name, email, password })).then((result) => {
+      if (result.type === "auth/registerUser/fulfilled") {
+        // Redirect to login page after successful registration
+        navigate("/login");
+      }
+    });
+  };
+
   return (
     <div className="flex h-screen bg-[#2D2638] text-white p-2">
       {/* Left Section: Swiper */}
       <div className="w-1/2 relative rounded-lg overflow-hidden bg-[#775F9E] shadow-lg m-3">
-        
         <Swiper
           modules={[Pagination]}
           pagination={{
@@ -82,26 +104,32 @@ const SignupForm = () => {
       <div className="w-1/2 flex flex-col justify-center items-center px-10">
         <h2 className="text-3xl font-bold mb-2">Create an account</h2>
         <p className="text-gray-400 mb-4">
-          Doesn't have an account yet?{" "}
+          Already have an account?{" "}
           <a href="/login" className="text-[#6D55B5] underline">
-            Sign Up
+            Login
           </a>
         </p>
-        <form className="w-full max-w-md">
-        <input
-            type="Name"
+        <form className="w-full max-w-md" onSubmit={handleSubmit}>
+          <input
+            type="text"
             placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="w-full bg-[#3B364C] text-gray-300 p-3 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <input
             type="email"
             placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="w-full bg-[#3B364C] text-gray-300 p-3 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <div className="relative mb-4">
             <input
               type="password"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-[#3B364C] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
@@ -109,35 +137,25 @@ const SignupForm = () => {
             <input
               type="password"
               placeholder="Confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full bg-[#3B364C] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
-          <div className="flex items-center mb-6">
-            <input
-              type="checkbox"
-              id="terms"
-              className="h-4 w-4 text-indigo-500 focus:ring-indigo-400 focus:ring-2 rounded"
-            />
-            <label htmlFor="terms" className="text-gray-400 ml-2 text-sm">
-              I agree to the{" "}
-              <a href="/terms" className="text-[#6D55B5] underline">
-                Terms & Conditions
-              </a>
-            </label>
-          </div>
+          {error && <p className="text-red-500 mb-4">{error}</p>}
           <button
             type="submit"
             className="w-full bg-[#6D55B5] text-white p-3 rounded hover:bg-indigo-600 transition"
+            disabled={loading}
           >
-            Create Account
+            {loading ? "Creating Account..." : "Create Account"}
           </button>
         </form>
         <div className="flex items-center gap-2">
-        <hr className="w-40 h-px border-[#7A7685]"/>
-        <div className="my-6 text-gray-500">Or create with</div>
-        <hr className="w-40 h-px border-[#7A7685]"/>
+          <hr className="w-40 h-px border-[#7A7685]" />
+          <div className="my-6 text-gray-500">Or create with</div>
+          <hr className="w-40 h-px border-[#7A7685]" />
         </div>
-        
         <div>
           <button className="w-full border-2 border-[#7A7685] rounded px-48 py-2">
             <img
@@ -149,7 +167,6 @@ const SignupForm = () => {
         </div>
       </div>
     </div>
-    
   );
 };
 
