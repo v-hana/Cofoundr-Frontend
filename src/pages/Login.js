@@ -11,6 +11,7 @@ const LoginForm = () => {
     <div className="flex h-screen bg-gray-900 text-white p-3">
       {/* Left Section: Swiper */}
       <div className="w-1/2 relative rounded-lg overflow-hidden shadow-lg m-4">
+        
         <Swiper
           modules={[Pagination]}
           pagination={{
@@ -126,9 +127,9 @@ const LoginForm = () => {
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png"
               alt="Google"
-              className="h-5"
+              className="h-5 "
             />
-            <span>Continue with Google</span>
+            
           </button>
         </div>
       </div>
