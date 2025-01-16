@@ -4,8 +4,27 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 
+<<<<<<< HEAD
+const SignupForm = () => {
+    const captions = [
+        "Capturing Moments, Creating Memories",
+        "Transform Your Ideas Into Reality",
+        "Share Stories That Inspire and Connect",
+      ];
+    
+      // Track the current caption (page)
+      const [currentCaption, setCurrentCaption] = useState(0);
+    
+      // Handle manual navigation through indicators
+      const handleIndicatorClick = (index) => {
+        setCurrentCaption(index);
+      };
+      
+
+=======
 
 const LoginForm = () => {
+>>>>>>> aa514e0b7d2dfd3ab2f9f5316516ae514c555375
   return (
     <div className="flex h-screen bg-[#2D2638] text-white p-2">
       {/* Left Section: Swiper */}
@@ -149,6 +168,7 @@ const LoginForm = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 
