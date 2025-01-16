@@ -142,7 +142,21 @@ const SignupForm = () => {
               className="w-full bg-[#3B364C] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
+          <div className="flex items-center mb-6">
+            <input
+              type="checkbox"
+              id="terms"
+              className="h-4 w-4 text-indigo-500 focus:ring-indigo-400 focus:ring-2 rounded"
+            />
+            <label htmlFor="terms" className="text-gray-400 ml-2 text-sm">
+              I agree to the{" "}
+              <a href="/terms" className="text-[#6D55B5] underline">
+                Terms & Conditions
+              </a>
+            </label>
+          </div>
           {error && <p className="text-red-500 mb-4">{error}</p>}
+
           <button
             type="submit"
             className="w-full bg-[#6D55B5] text-white p-3 rounded hover:bg-indigo-600 transition"
