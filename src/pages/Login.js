@@ -1,26 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 import { loginUser } from "../redux/authSlice";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { error, loading } = useSelector((state) => state.auth);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(loginUser({ email, password }));
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    dispatch(loginUser(data));
   };
 
   return (
     <div
       className="flex h-screen bg-cover bg-[#2D2638] bg-center items-center justify-center"
       style={{
-        backgroundImage: "url('https://via.placeholder.com/1920x1080')", // Replace with your image URL
+        backgroundImage: "url('https://via.placeholder.com/1920x1080')",
       }}
     >
-      <div className="bg-[#A98ADA36] bg-opacity-21 border p-10 rounded-lg shadow-lg w-full max-w-lg">
+      <div className="bg-[#A98ADA36] bg-opacity-21 border  p-10 rounded-lg shadow-lg w-full max-w-lg">
         <h2 className="text-3xl font-bold text-white mb-4 text-center">
           Login to your Account
         </h2>
@@ -30,27 +34,47 @@ const LoginForm = () => {
             Sign up
           </a>
         </p>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="relative mb-4">
           <input
             type="email"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-[#3B364C] text-gray-300 p-3 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "Invalid email format",
+              },
+            })}
+            className="w-full bg-[#3B364C] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
+          {errors.email && (
+            <p className="text-red-500 text-sm mb-4">{errors.email.message}</p>
+            )}
+            </div>
           <div className="relative mb-4">
             <input
               type="password"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
+              })}
               className="w-full bg-[#3B364C] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm mb-4">{errors.password.message}</p>
+            )}
           </div>
-          <div className="flex items-center mb-6">
+          <div className="flex items-center mb-4">
             <input
               type="checkbox"
-              id="terms"
+              {...register("termsAccepted", {
+                required: "You must agree to the Terms & Conditions",
+              })}
               className="h-4 w-4 text-indigo-500 focus:ring-indigo-400 focus:ring-2 rounded"
             />
             <label htmlFor="terms" className="text-gray-400 ml-2 text-sm">
@@ -60,6 +84,11 @@ const LoginForm = () => {
               </a>
             </label>
           </div>
+          {errors.termsAccepted && (
+            <p className="text-red-500 text-sm mb-4">
+              {errors.termsAccepted.message}
+            </p>
+          )}
           {error && <p className="text-red-500 mb-4">{error}</p>}
           <button
             type="submit"
