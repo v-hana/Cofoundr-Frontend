@@ -6,22 +6,23 @@ import { Pagination } from "swiper/modules";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";  // Import useNavigate for redirection
+import { useForm } from "react-hook-form";
 
 const SignupForm = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();  // Initialize useNavigate
   const { error, loading } = useSelector((state) => state.auth);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      return; // Passwords do not match; no need to dispatch action
-    }
-    dispatch(registerUser({ name, email, password })).then((result) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },watch
+  } = useForm();
+
+  const onSubmit = (data) => {
+    // Dispatch registration action
+    dispatch(registerUser(data)).then((result) => {
       if (result.type === "auth/registerUser/fulfilled") {
         // Redirect to login page after successful registration
         navigate("/login");
@@ -33,13 +34,14 @@ const SignupForm = () => {
     <div className="flex h-screen bg-[#2D2638] text-white p-2">
       {/* Left Section: Swiper */}
       <div className="w-1/2 relative rounded-lg overflow-hidden bg-[#775F9E] shadow-lg m-3">
-        <Swiper
-          modules={[Pagination]}
-          pagination={{
-            clickable: true,
-            renderBullet: (index, className) =>
-              `<span class="${className} w-8 h-2 bg-gray-400 rounded-full mx-1 cursor-pointer transition-all hover:bg-white"></span>`,
-          }}
+      <Swiper
+  modules={[Pagination]}
+  pagination={{
+    clickable: true,
+    renderBullet: (index, className) => {
+      return `<span class="${className} w-8 h-2 bg-gray-400 rounded-full mx-1 cursor-pointer transition-all hover:bg-white"></span>`;
+    },
+  }}
           className="h-full rounded-lg"
         >
           <SwiperSlide>
@@ -100,8 +102,8 @@ const SignupForm = () => {
         </Swiper>
       </div>
 
-      {/* Right Section: Form */}
-      <div className="w-1/2 flex flex-col justify-center items-center px-10">
+     {/* Right Section: Form */}
+     <div className="w-1/2 flex flex-col justify-center items-center px-10">
         <h2 className="text-3xl font-bold mb-2">Create an account</h2>
         <p className="text-gray-400 mb-4">
           Already have an account?{" "}
@@ -109,43 +111,77 @@ const SignupForm = () => {
             Login
           </a>
         </p>
-        <form className="w-full max-w-md" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full bg-[#3B364C] text-gray-300 p-3 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-[#3B364C] text-gray-300 p-3 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-          <div className="relative mb-4">
+        <form className="w-full max-w-md" onSubmit={handleSubmit(onSubmit)}>
+          <div className="relative mb-3">
+            <input
+              type="text"
+              placeholder="Full Name"
+              {...register("name", { required: "Name is required." })}
+              className="w-full bg-[#3B364C] text-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name.message}</p>
+            )}
+          </div>
+          <div className="relative mb-3">
+            <input
+              type="email"
+              placeholder="Email"
+              {...register("email", {
+                required: "Email is required.",
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: "Invalid email format.",
+                },
+              })}
+              className="w-full bg-[#3B364C] text-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email.message}</p>
+            )}
+          </div>
+          <div className="relative mb-3">
             <input
               type="password"
               placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-[#3B364C] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              {...register("password", {
+                required: "Password is required.",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters.",
+                },
+              })}
+              className="w-full bg-[#3B364C] text-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password.message}</p>
+            )}
           </div>
           <div className="relative mb-4">
             <input
               type="password"
               placeholder="Confirm password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full bg-[#3B364C] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              {...register("confirmPassword", {
+                required: "Please confirm your password.",
+                validate: (value) =>
+                  value ===
+                  watch("password") || "Passwords do not match.",
+              })}
+              className="w-full bg-[#3B364C] text-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm">
+                {errors.confirmPassword.message}
+              </p>
+            )}
           </div>
-          <div className="flex items-center mb-6">
+          <div className="flex items-center mb-3">
             <input
               type="checkbox"
               id="terms"
+              {...register("termsAccepted", {
+                required: "You must agree to the Terms & Conditions.",
+              })}
               className="h-4 w-4 text-indigo-500 focus:ring-indigo-400 focus:ring-2 rounded"
             />
             <label htmlFor="terms" className="text-gray-400 ml-2 text-sm">
@@ -155,11 +191,14 @@ const SignupForm = () => {
               </a>
             </label>
           </div>
-          {error && <p className="text-red-500 mb-4">{error}</p>}
-
+          {errors.termsAccepted && (
+            <p className="text-red-500 text-sm mb-4">
+              {errors.termsAccepted.message}
+            </p>
+          )}
           <button
             type="submit"
-            className="w-full bg-[#6D55B5] text-white p-3 rounded hover:bg-indigo-600 transition"
+            className="w-full bg-[#6D55B5] text-white p-2 rounded hover:bg-indigo-600 transition"
             disabled={loading}
           >
             {loading ? "Creating Account..." : "Create Account"}
@@ -167,7 +206,7 @@ const SignupForm = () => {
         </form>
         <div className="flex items-center gap-2">
           <hr className="w-40 h-px border-[#7A7685]" />
-          <div className="my-6 text-gray-500">Or create with</div>
+          <div className="my-3 text-gray-500">Or create with</div>
           <hr className="w-40 h-px border-[#7A7685]" />
         </div>
         <div>
@@ -183,5 +222,4 @@ const SignupForm = () => {
     </div>
   );
 };
-
 export default SignupForm;
