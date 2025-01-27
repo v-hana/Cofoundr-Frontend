@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import store from "./redux/store"; 
 import SignupForm from "./pages/Signup"; 
 import LoginForm from "./pages/Login"; 
+import UserProfile from "./pages/UserProfile";
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<SignupForm />} />
             <Route path="/login" element={<LoginForm />} />
+            <Route path="/user-profile" element={<UserProfile />} />
           </Routes>
         </div>
       </Router>
