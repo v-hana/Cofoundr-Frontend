@@ -5,6 +5,7 @@ import store from "./redux/store";
 import SignupForm from "./pages/Signup";
 import LoginForm from "./pages/Login";
 import Home from "./pages/home";
+import UserProfile from "./pages/UserProfile";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
             <Route path="/" element={<SignupForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/user-profile" element={<UserProfile />} />
           </Routes>
         </div>
       </Router>
