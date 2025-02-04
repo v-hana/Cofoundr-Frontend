@@ -121,13 +121,13 @@ const UserProfile = () => {
             <div className="flex gap-2">
               <button
                 onClick={() => handleSwipe(postsSwiperRef, "prev")}
-                className="bg-[#BAA7FC2E] w-10 h-10 rounded-full hover:border-purple-500 border-2 border-transparent"
+                className="w-10 h-10 rounded-full hover:border-purple-500 border-2"
               >
                 <FontAwesomeIcon icon={faArrowLeft} />
               </button>
               <button
                 onClick={() => handleSwipe(postsSwiperRef, "next")}
-                className="bg-[#BAA7FC2E] w-10 h-10 rounded-full hover:border-purple-500 border-2 border-transparent"
+                className="w-10 h-10 rounded-full hover:border-purple-500 border-2"
               >
                 <FontAwesomeIcon icon={faArrowRight} />
               </button>
@@ -169,13 +169,13 @@ const UserProfile = () => {
             <div className="flex gap-2">
               <button
                 onClick={() => handleSwipe(savedSwiperRef, "prev")}
-                className="bg-[#BAA7FC2E] w-10 h-10 rounded-full hover:border-purple-500 border-2 border-transparent"
+                className="w-10 h-10 rounded-full hover:border-purple-500 border-2"
               >
                 <FontAwesomeIcon icon={faArrowLeft} />
               </button>
               <button
                 onClick={() => handleSwipe(savedSwiperRef, "next")}
-                className="bg-[#BAA7FC2E] w-10 h-10 rounded-full hover:border-purple-500 border-2 border-transparent"
+                className="w-10 h-10 rounded-full hover:border-purple-500 border-2"
               >
                 <FontAwesomeIcon icon={faArrowRight} />
               </button>
