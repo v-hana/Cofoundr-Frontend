@@ -8,6 +8,7 @@ import Home from "./pages/home";
 import UserProfile from "./pages/UserProfile";
 import SingleProfile from "./pages/SingleProfile";
 import AddPost from "./pages/AddPost";
+import Notifications from "./pages/Notifications";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Route path="/user-profile" element={<UserProfile />} />
             <Route path="/single-profile" element={<SingleProfile />} />
             <Route path="/add-post" element={<AddPost />} />
+            <Route path="/notifications" element={<Notifications />} />
           </Routes>
         </div>
       </Router>
