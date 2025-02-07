@@ -7,6 +7,9 @@ import LoginForm from "./pages/Login";
 import UserProfile from "./pages/UserProfile";
 import Home from "./pages/home";
 import ProfileGrid from "./pages/ExploreProfiles";
+import UserProfile from "./pages/UserProfile";
+import SingleProfile from "./pages/SingleProfile";
+import AddPost from "./pages/AddPost";
 
 
 const App = () => {
@@ -20,6 +23,9 @@ const App = () => {
             <Route path="/user-profile" element={<UserProfile />} />
             <Route path="/home" element={<Home />} />
             <Route path="/explore-profiles" element={<ProfileGrid />} />
+            <Route path="/user-profile" element={<UserProfile />} />
+            <Route path="/single-profile" element={<SingleProfile />} />
+            <Route path="/add-post" element={<AddPost />} />
           </Routes>
         </div>
       </Router>
