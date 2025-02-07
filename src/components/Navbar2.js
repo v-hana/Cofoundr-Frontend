@@ -5,7 +5,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-[#2D2638] lg:px-20 md:px-20 py-2 flex justify-between items-center  sm:px-6 max-sm:px-4">
+      <nav className="bg-[#2D2638] px-8 py-2 flex justify-between items-center">
         {/* Profile Icon */}
         <div className="flex items-center">
           <img
@@ -14,21 +14,23 @@ const Navbar = () => {
             className="w-14 h-14 rounded-full border-4 border-[#BAA7FC2E] transition duration-300 hover:border-purple-500"
           />
         </div>
+
         {/* Search Bar */}
-        <div className="flex-1 mx-4">
+        <div className="flex-1 mx-4 max-sm:mx-2">
           <div className="relative">
             <input
               type="text"
               placeholder="Search..."
-              className="bg-[#BAA7FC2E] shadow text-white rounded-full  px-10 py-2 transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="bg-[#BAA7FC2E] shadow text-white rounded-full  px-10 py-2  transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
             <i className="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
           </div>
         </div>
+
         {/* Right-Side Icons */}
         <div>
           {/* Show all icons above 640px */}
-          <div className="hidden sm:flex items-center space-x-4">
+          <div className="hidden sm:flex items-center space-x-4 sm:space-x-2">
             <button className="text-gray-400 hover:text-white">
               <i className="fas fa-bell w-10 h-10 rounded-full shadow border-4 border-[#BAA7FC2E] flex justify-center items-center transition duration-300 hover:border-purple-500 hover:text-white"></i>
             </button>
