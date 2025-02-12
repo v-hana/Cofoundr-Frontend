@@ -7,7 +7,6 @@ import LoginForm from "./pages/Login";
 import UserProfile from "./pages/UserProfile";
 import Home from "./pages/home";
 import ProfileGrid from "./pages/ExploreProfiles";
-import UserProfile from "./pages/UserProfile";
 import SingleProfile from "./pages/SingleProfile";
 import AddPost from "./pages/AddPost";
 import Notifications from "./pages/Notifications";
