@@ -39,7 +39,7 @@ const UserProfile = () => {
             <img
               src="https://i.ibb.co/WpXfyPL/Ellipse-2.png"
               alt="Profile"
-              className="w-36 h-36 rounded-full border-8 border-[#2D2638]"
+              className="w-24 h-24 rounded-full border-8 border-[#2D2638]"
             />
 
             {/* Profile Views */}
