@@ -5,7 +5,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="bg-[#2D2638] px-8 py-2 flex justify-between items-center">
+      <nav className="bg-[#fdfdfd] px-8 py-2 flex justify-between items-center">
         {/* Profile Icon */}
         <div className="flex items-center">
           <img
