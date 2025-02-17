@@ -19,18 +19,18 @@ const ProfileCard = ({ profile }) => {
   };
 
   return (
-    <div className=" h-full bg-[#BAA7FC2E] text-white rounded-2xl shadow-lg p-4 border border-[#D9D9D9]">
+    <div className=" h-full bg-[#fdfdfd] text-white rounded-2xl shadow-lg p-4 border border-[#D9D9D9]">
       <div className=" relative flex flex-col items-center mb-4 ">
-        <div className="w-20 h-20 rounded-full bg-gray-500 border border-4 border-[#BAA7FC40]" />
+        <div className="w-20 h-20 rounded-full bg-gray-500 border-4 border-[#BAA7FC40]" />
 
-        <h2 className="md:text-xl sm:text-lg max-sm:text-lg font-semibold">
+        <h2 className="md:text-xl sm:text-lg max-sm:text-lg font-semibold text-[#010101]">
           {profile.name}
         </h2>
-        <p className="md:text-sm sm:text-xs max-sm:text-xs text-[#7A7685]">
+        <p className="md:text-sm sm:text-xs max-sm:text-xs text-[#010101b8]">
           {profile.location}
         </p>
       </div>
-      <div className="bg-[#2D2638]">
+      <div className="bg-[#b7b0b0]">
         {/* Main Swiper */}
         <Swiper
           style={{
@@ -41,7 +41,7 @@ const ProfileCard = ({ profile }) => {
           spaceBetween={10}
           thumbs={{ swiper: thumbsSwiper }}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper2 mb-2 bg-[#BAA7FC40] p-2"
+          className="mySwiper2 mb-2 bg-[#d8d0d0] p-2"
         >
           {profile.slides.map((slide, slideIndex) => (
             <SwiperSlide key={slideIndex}>
@@ -49,7 +49,7 @@ const ProfileCard = ({ profile }) => {
                 className="flex flex-col items-center"
                 style={{ width: "100%", height: "200px" }}
               >
-                <p className="md:text-sm sm:text-xs max-sm:text-xs text-left mb-2">
+                <p className="md:text-sm sm:text-xs max-sm:text-xs text-left mb-2 text-[#010101]">
                   {expandedSlides[`main - ${slideIndex}`] ? (
                     <>
                       {slide.description}
@@ -96,8 +96,8 @@ const ProfileCard = ({ profile }) => {
           className="mySwiper"
         >
           {profile.slides.map((slide, slideIndex) => (
-            <SwiperSlide key={slideIndex} className="bg-[#BAA7FC40] p-2">
-              <p className="md:text-xs sm:text-[10px] max-sm:text-[8px] leading-[0.7rem]  text-left mb-2 sm:mb-1 max-sm:mb-1 h-[40%]">
+            <SwiperSlide key={slideIndex} className="bg-[#d8d0d0] p-2">
+              <p className="md:text-xs sm:text-[10px] max-sm:text-[8px] leading-[0.7rem]  text-left mb-2 sm:mb-1 max-sm:mb-1 h-[40%] text-[#010101]">
                 {expandedSlides[`thumb - ${slideIndex} `] ? (
                   <>
                     {slide.description}
@@ -122,14 +122,14 @@ const ProfileCard = ({ profile }) => {
         </Swiper>
       </div>
       <div className="flex space-x-3 justify-center flex-center mt-4">
-        <button className="px-4 py-2 rounded-md border bg-gray text-white hover:bg-gray-600">
+        <button className="px-4 py-2 rounded-md border bg-[#7e012d] text-white hover:bg-gray-600">
           Accept
         </button>
-        <button className="px-4 py-2 rounded-md border bg-gray text-white hover:bg-gray-600 ml-2">
+        <button className="px-4 py-2 rounded-md border bg-[#010101] text-white hover:bg-gray-600 ml-2">
           Decline
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 
@@ -393,25 +393,25 @@ const ProfileGrid = () => {
     <div>
       {/* Navbar */}
       <Navbar />
-      <hr className="border-y border-[#3B364C] h-px" />
-      <div className="bg-[#2D2638] min-h-screen text-white p-8">
+      <hr className="border-y border-[#e2e2e2] h-px" />
+      <div className="bg-[#f6f6f6] min-h-screen text-white p-8">
         <div className="max-w-7xl mx-auto">
           {sections.map((section, index) => (
             <div key={index} className="mb-12">
               <div className="flex justify-between items-center">
-                <h1 className="md:text-2xl sm:text-xl max-sm:text-xl font-bold mb-6 ">
+                <h1 className="md:text-2xl sm:text-xl max-sm:text-xl font-bold mb-6 text-[#010101]">
                   {section}
                 </h1>
                 <div className="flex md:space-x-6 sm:space-x-3 max-sm:space-x-2 text-xl mb-6">
                   <button
                     onClick={() => swiperRefs.current[index]?.slidePrev()}
-                    className="md:w-10 md:h-10 sm:w-8 sm:h-8 max-sm:w-8 max-sm:h-8 rounded-full border hover:shadow-sm hover:shadow-white"
+                    className="md:w-10 md:h-10 sm:w-8 sm:h-8 max-sm:w-8 max-sm:h-8 text-[#010101] rounded-full border border-[#010101] hover:shadow-sm hover:shadow-white"
                   >
                     <i class="fas fa-arrow-left "></i>
                   </button>
                   <button
                     onClick={() => swiperRefs.current[index]?.slideNext()}
-                    className="md:w-10 md:h-10 sm:w-8 sm:h-8 max-sm:w-8 max-sm:h-8 rounded-full border hover:shadow-sm hover:shadow-white"
+                    className="md:w-10 md:h-10 sm:w-8 sm:h-8 max-sm:w-8 max-sm:h-8 text-[#010101] rounded-full border border-[#010101] hover:shadow-sm hover:shadow-white"
                   >
                     <i class="fas fa-arrow-right"></i>
                   </button>
@@ -429,7 +429,7 @@ const ProfileGrid = () => {
                   768: { slidesPerView: 1.5 },
                   1024: { slidesPerView: 2 },
                 }}
-                className="mySwiper"
+                className="mySwiper pb-8"
               >
                 {profilesList[index]?.map((profile, i) => (
                   <SwiperSlide key={i}>

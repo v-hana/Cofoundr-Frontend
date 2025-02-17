@@ -2,16 +2,16 @@ import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark, faPen,faArrowRight,faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faPen, faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const UserProfile = () => {
-   // Example data for Posts and Saved
-   const posts = Array(8).fill({
+  // Example data for Posts and Saved
+  const posts = Array(8).fill({
     img: "https://i.ibb.co/NNrkBBv/a-young-asian-woman-walking-inside-a-modern-wooden-building-1536x1024-3-1.png",
-    desc: "Lorem ipsum dolor sit the arfaciliytb be kind amet, consectetur " ,
+    desc: "Lorem ipsum dolor sit the arfaciliytb be kind amet, consectetur ",
     date: "1/2/2034",
   });
   const saved = Array(8).fill({

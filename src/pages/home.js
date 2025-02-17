@@ -21,10 +21,10 @@ const Home = () => {
   ];
 
   return (
-    <div className="bg-[#2D2638] min-h-screen">
+    <div className="bg-[#f6f6f6] min-h-screen">
       {/* Navbar */}
       <Navbar />
-      <hr className="border-y border-[#3B364C] h-px" />
+      <hr className="border-y border-[#e2e2e2] h-px" />
 
       {/* Posts */}
       <div className="px-6 md:px-20 mx-auto space-y-6 mt-6">
