@@ -26,7 +26,7 @@ const PostCard = ({ name, date, content, image }) => (
     />
 
     {/* Buttons at the Bottom */}
-    <div className="flex justify-between items-center mt-4 border-t border-gray-600 pt-3">
+    <div className="flex justify-between items-center mt-4  border-gray-600 pt-3">
       <button className="text-[#7A7685] hover:text-white text-sm md:text-base flex items-center">
         <i className="far fa-bookmark mr-2"></i> Save
       </button>

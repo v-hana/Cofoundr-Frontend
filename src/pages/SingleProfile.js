@@ -45,13 +45,13 @@ const SingleProfile = () => {
   }, []);
 
   return (
-    <div className="w-full bg-[#2D2638] text-white flex flex-col items-center overflow-x-hidden">
+    <div className="w-full bg-[#f6f6f6] text-black flex flex-col items-center overflow-x-hidden">
       {/* Profile Section */}
       <div className="p-6 relative w-full">
         {/* Options Button */}
         <div className="absolute top-6 right-6 profile-options-container">
           <button
-            className="text-gray-400 hover:text-gray-200 lg:px-20 py-2 sm:px-10 text-lg transform hover:scale-125 transition duration-100"
+            className="text-black hover:text-gray-500 lg:px-20 py-2 sm:px-10 text-lg transform hover:scale-125 transition duration-100"
             onClick={() => setShowOptions(!showOptions)}
           >
             <FontAwesomeIcon icon={faEllipsisV} size="xl" />
@@ -91,9 +91,9 @@ const SingleProfile = () => {
               Colorado, USA <FontAwesomeIcon icon={faExternalLinkAlt} />
             </a>
           </p>
-          <p className="text-gray-400">5245 Olde Wadsworth Boulevard</p>
-          <p className="text-gray-400">Arvada, CO 80102</p>
-          <p className="text-gray-400">(469) 624-6708</p>
+          <p className="text-[#010101b8]">5245 Olde Wadsworth Boulevard</p>
+          <p className="text-[#010101b8]">Arvada, CO 80102</p>
+          <p className="text-[#010101b8]">(469) 624-6708</p>
         </div>
       </div>
 
@@ -113,9 +113,9 @@ const SingleProfile = () => {
           },
         ].map((item, index) => (
           <div key={index} className="relative">
-            <div className=" w-60 px-6 py-3  text-white rounded-lg flex flex-col items-center justify-center bg-[#3D3450]">
+            <div className=" w-60 px-6 py-3 rounded-lg flex flex-col items-center justify-center shadow bg-[#fdfdfd]">
               <h3 className="font-semibold">{item.title}</h3>
-              <p className=" text-sm text-gray-300 text-center">
+              <p className=" text-sm text-[#010101b8] text-center">
                 {item.description}
               </p>
             </div>
@@ -157,7 +157,7 @@ const SingleProfile = () => {
           {posts.map((post, index) => (
             <SwiperSlide
               key={index}
-              className="bg-[#BAA7FC2E] rounded-lg shadow-md p-4 relative"
+              className="bg-[#fdfdfd] rounded-lg shadow-md p-4 relative"
             >
               <img
                 src={post.img}
@@ -167,7 +167,7 @@ const SingleProfile = () => {
               <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
                 <FontAwesomeIcon icon={faPen} />
               </button>
-              <p className="text-sm text-gray-300 mt-2">{post.desc}</p>
+              <p className="text-sm text-[#010101b8] mt-2">{post.desc}</p>
               <p className="text-xs text-white absolute bottom-2 right-2">
                 {post.date}
               </p>
