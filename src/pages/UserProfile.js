@@ -27,12 +27,12 @@ const UserProfile = () => {
     direction === "next" ? swiperRef.current.slideNext() : swiperRef.current.slidePrev();
   };
   return (
-    <div className="text-white">
-      <div className="mx-auto h-full bg-[#2D2638] px-6 sm:px-10 lg:px-20 py-10">
+    <div className="text-black">
+      <div className="mx-auto h-full bg-[#f6f6f6] px-6 sm:px-10 lg:px-20 py-10">
         {/* Profile Section */}
         <div className="flex flex-col lg:flex-row md:flex-row gap-8 rounded-lg">
           {/* Left Profile Card */}
-          <div className="relative flex flex-col items-center justify-center gap-8 w-full lg:w-1/3 md:1/2 bg-[#775F9E] rounded-lg text-center p-6">
+          <div className="relative flex flex-col items-center justify-center gap-8 w-full lg:w-1/3 md:1/2 bg-white shadow rounded-lg text-center p-6">
             <button className="absolute top-2 right-2 text-[#2D2638] p-2 rounded transition duration-300 hover:scale-110 hover:text-purple-500">
               <FontAwesomeIcon icon={faPen} />
             </button>
@@ -47,14 +47,14 @@ const UserProfile = () => {
               {Array(4)
                 .fill(0)
                 .map((_, index) => (
-                  <div key={index} className="bg-[#2D2638] p-6 rounded-lg md:p-4">
+                  <div key={index} className="bg-[#7A7685] p-6 rounded-lg md:p-4">
                     <p className="text-lg md:text-md">Profile Views</p>
                     <p className="text-5xl font-semibold md:text-4xl">112</p>
                   </div>
                 ))}
             </div>
 
-            <button className="bg-[#2D2638] px-4 py-2 rounded-full w-1/2 border-2 border-transparent hover:border-purple-500 transition duration-300">
+            <button className="bg-[#7e012d] px-4 py-2 rounded-full w-1/2 border-2 border-transparent hover:border-purple-500 transition duration-300">
               Log Out
             </button>
           </div>
@@ -92,17 +92,17 @@ const UserProfile = () => {
             <div className="p-6 md:p-4">
               <strong>Skills</strong>
               <div className="flex flex-wrap gap-4 mt-2">
-                <div className="px-6 py-2 bg-[#BAA7FC2E] rounded-full">Node.js</div>
-                <div className="px-6 py-2 bg-[#BAA7FC2E] rounded-full">React</div>
-                <div className="px-6 py-2 bg-[#BAA7FC2E] rounded-full">JavaScript</div>
+                <div className="px-6 py-2 bg-[#7e012d] rounded-full">Node.js</div>
+                <div className="px-6 py-2 bg-[#7e012d] rounded-full">React</div>
+                <div className="px-6 py-2 bg-[#7e012d] rounded-full">JavaScript</div>
               </div>
             </div>
             <div className="p-6 md:p-4">
               <strong>Preferences</strong>
               <div className="flex flex-wrap gap-4 mt-2">
-                <div className="px-6 py-2 bg-[#BAA7FC2E] rounded-full">Node.js</div>
-                <div className="px-6 py-2 bg-[#BAA7FC2E] rounded-full">React</div>
-                <div className="px-6 py-2 bg-[#BAA7FC2E] rounded-full">JavaScript</div>
+                <div className="px-6 py-2 bg-[#7e012d] rounded-full">Node.js</div>
+                <div className="px-6 py-2 bg-[#7e012d] rounded-full">React</div>
+                <div className="px-6 py-2 bg-[#7e012d] rounded-full">JavaScript</div>
               </div>
             </div>
             <div className="p-6 md:p-4">
@@ -121,13 +121,13 @@ const UserProfile = () => {
             <div className="flex gap-2">
               <button
                 onClick={() => handleSwipe(postsSwiperRef, "prev")}
-                className="w-10 h-10 rounded-full hover:border-purple-500 border-2"
+                className="w-10 h-10 rounded-full hover:border-[#7e012d] border-2"
               >
                 <FontAwesomeIcon icon={faArrowLeft} />
               </button>
               <button
                 onClick={() => handleSwipe(postsSwiperRef, "next")}
-                className="w-10 h-10 rounded-full hover:border-purple-500 border-2"
+                className="w-10 h-10 rounded-full hover:border-[#7e012d] border-2"
               >
                 <FontAwesomeIcon icon={faArrowRight} />
               </button>
@@ -145,7 +145,7 @@ const UserProfile = () => {
           >
             {posts.map((post, index) => (
               <SwiperSlide key={index}>
-                <div className="bg-[#BAA7FC2E] rounded-lg shadow-md p-4 relative">
+                <div className="bg-white rounded-lg shadow-md p-4 relative">
                   <img
                     src={post.img}
                     alt=""
@@ -154,7 +154,7 @@ const UserProfile = () => {
                   <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
                     <FontAwesomeIcon icon={faPen} />
                   </button>
-                  <p className="text-sm text-gray-300 mt-2">{post.desc}</p>
+                  <p className="text-sm text-[#7A7685] mt-2">{post.desc}</p>
                   <p className="text-xs text-gray-500 absolute bottom-2 right-2">{post.date}</p>
                 </div>
               </SwiperSlide>
@@ -169,13 +169,13 @@ const UserProfile = () => {
             <div className="flex gap-2">
               <button
                 onClick={() => handleSwipe(savedSwiperRef, "prev")}
-                className="w-10 h-10 rounded-full hover:border-purple-500 border-2"
+                className="w-10 h-10 rounded-full hover:border-[#7e012d] border-2"
               >
                 <FontAwesomeIcon icon={faArrowLeft} />
               </button>
               <button
                 onClick={() => handleSwipe(savedSwiperRef, "next")}
-                className="w-10 h-10 rounded-full hover:border-purple-500 border-2"
+                className="w-10 h-10 rounded-full hover:border-[#7e012d] border-2"
               >
                 <FontAwesomeIcon icon={faArrowRight} />
               </button>
@@ -193,7 +193,7 @@ const UserProfile = () => {
           >
             {saved.map((saved, index) => (
               <SwiperSlide key={index}>
-                <div className="bg-[#BAA7FC2E] rounded-lg shadow-md p-4 relative">
+                <div className="bg-white rounded-lg shadow-md p-4 relative">
                   <img
                     src={saved.img}
                     alt=""
@@ -202,7 +202,7 @@ const UserProfile = () => {
                   <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
                     <FontAwesomeIcon icon={faBookmark} />
                   </button>
-                  <p className="text-sm text-gray-300 mt-2">{saved.desc}</p>
+                  <p className="text-sm text-[#7A7685] mt-2">{saved.desc}</p>
                 </div>
               </SwiperSlide>
             ))}

@@ -130,13 +130,13 @@ const SingleProfile = () => {
           <div className="flex gap-2">
             <button
               onClick={() => handleSwipe(postsSwiperRef, "prev")}
-              className="w-10 h-10 rounded-full hover:border-purple-500 border-2"
+              className="w-10 h-10 rounded-full hover:border-[#7e012d] border-2"
             >
               <FontAwesomeIcon icon={faArrowLeft} />
             </button>
             <button
               onClick={() => handleSwipe(postsSwiperRef, "next")}
-              className="w-10 h-10 rounded-full hover:border-purple-500 border-2"
+              className="w-10 h-10 rounded-full hover:border-[#7e012d] border-2"
             >
               <FontAwesomeIcon icon={faArrowRight} />
             </button>

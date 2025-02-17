@@ -92,10 +92,10 @@ const Notifications = () => {
   };
 
   return (
-    <div className="mx-auto p-6 bg-[#2D2638] text-white">
+    <div className="mx-auto p-6 bg-[#f6f6f6] text-black">
       <h2 className="text-xl font-semibold text-center">
         All Notifications{" "}
-        <span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
+        <span className="bg-[#7e012d] text-white text-xs px-2 py-1 rounded-full">
           {notifications.length}
         </span>
       </h2>
@@ -104,7 +104,7 @@ const Notifications = () => {
         {/* Notifications List */}
         <div className="space-y-6 relative">
           {notifications.slice(0, visibleCount).map((notification) => (
-            <div key={notification.id} className="relative md:w-[80%] sm:w-[70%] w-[65%] flex flex-col sm:flex-row items-start bg-[#BAA7FC2E] shadow-md p-4 rounded-lg">
+            <div key={notification.id} className="relative md:w-[80%] sm:w-[70%] w-[65%] flex flex-col sm:flex-row items-start bg-white shadow-md p-4 rounded-lg">
               {/* Avatar */}
               <div className="w-10 h-10 flex items-center justify-center bg-gray-300 rounded-full">
                 {notification.avatar ? (
@@ -142,7 +142,7 @@ const Notifications = () => {
           
         {/* Timeline (Positioned on the Right) */}
         <div className="flex space-x-2 items-center absolute right-0 transform translate-x-[calc(100%+20px)] top-1/2 ">
-                <div className="w-3 h-3 bg-white rounded-full"></div>
+                <div className="w-3 h-3 bg-[#7e012d] rounded-full"></div>
                 <p className="text-xs">{notification.date}</p>
               </div>
             </div>
@@ -154,7 +154,7 @@ const Notifications = () => {
         <div className="flex justify-center mt-6">
           <button
             onClick={loadMore}
-            className="bg-[#7A7685] px-6 py-2 rounded-lg border hover:bg-gray-500 transition"
+            className="bg-[#7e012d] px-6 py-2 rounded-lg border hover:border-gray-500 transition"
           >
             Load more
           </button>
