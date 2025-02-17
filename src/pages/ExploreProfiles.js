@@ -122,10 +122,10 @@ const ProfileCard = ({ profile }) => {
         </Swiper>
       </div>
       <div className="flex space-x-3 justify-center flex-center mt-4">
-        <button className="px-4 py-2 rounded-md border bg-[#7e012d] text-white hover:bg-gray-600">
+        <button className="px-4 py-2 rounded-md border bg-[#7e012d] text-white hover:bg-[#7e012dab]">
           Accept
         </button>
-        <button className="px-4 py-2 rounded-md border bg-[#010101] text-white hover:bg-gray-600 ml-2">
+        <button className="px-4 py-2 rounded-md border border-[#7e012d] text-[#7e012d] hover:bg-[#7e012d] hover:text-white ml-2">
           Decline
         </button>
       </div>
