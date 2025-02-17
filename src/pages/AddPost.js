@@ -83,8 +83,8 @@ function AddPost() {
       </div>
 
       <div className="mt-6 flex sm:justify-end justify-center space-x-2">
-        <button className="bg-[#7e012d] border sm:px-6 py-2 px-3  rounded-full text-white font-semibold hover:bg-gray-500 transition">CREATE</button>
-        <button className="bg-[#7A7685] border sm:px-6 py-2 px-3  rounded-full text-white font-semibold hover:bg-gray-500 transition">CANCEL</button>
+        <button className="bg-[#7e012d] border sm:px-6 py-2 px-3  rounded-full text-black  hover:bg-gray-500 transition">CREATE</button>
+        <button className="border  border-[#7e012d] sm:px-6 py-2 px-3  rounded-full text-[#7e012d] font-semibold hover:bg-gray-500 transition">CANCEL</button>
       </div>
     </div>
   );
