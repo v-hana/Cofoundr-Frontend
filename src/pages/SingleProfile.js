@@ -79,7 +79,7 @@ const SingleProfile = () => {
           <img
             src="https://i.ibb.co/WpXfyPL/Ellipse-2.png"
             alt=""
-            className="w-24 h-24 rounded-full border-8 border-[#BAA7FC2E]"
+            className="w-24 h-24 rounded-full border-8 border-[#7e012d]"
           />
           <h2 className="text-2xl font-bold">John Anderson</h2>
           <p className="font-semibold">

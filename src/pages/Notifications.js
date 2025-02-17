@@ -154,7 +154,7 @@ const Notifications = () => {
         <div className="flex justify-center mt-6">
           <button
             onClick={loadMore}
-            className="bg-[#7e012d] px-6 py-2 rounded-lg border hover:border-gray-500 transition"
+            className="bg-[#7e012d] text-white px-6 py-2 rounded-lg border hover:border-gray-500 transition"
           >
             Load more
           </button>

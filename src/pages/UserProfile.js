@@ -33,13 +33,13 @@ const UserProfile = () => {
         <div className="flex flex-col lg:flex-row md:flex-row gap-8 rounded-lg">
           {/* Left Profile Card */}
           <div className="relative flex flex-col items-center justify-center gap-8 w-full lg:w-1/3 md:1/2 bg-white shadow rounded-lg text-center p-6">
-            <button className="absolute top-2 right-2 text-[#2D2638] p-2 rounded transition duration-300 hover:scale-110 hover:text-purple-500">
+            <button className="absolute top-2 right-2 text-[#2D2638] p-2 rounded transition duration-300 hover:scale-110">
               <FontAwesomeIcon icon={faPen} />
             </button>
             <img
               src="https://i.ibb.co/WpXfyPL/Ellipse-2.png"
               alt="Profile"
-              className="w-36 h-36 rounded-full border-8 border-[#2D2638]"
+              className="w-36 h-36 rounded-full border-8 border-[#7e012d]"
             />
 
             {/* Profile Views */}
@@ -47,14 +47,14 @@ const UserProfile = () => {
               {Array(4)
                 .fill(0)
                 .map((_, index) => (
-                  <div key={index} className="bg-[#7A7685] p-6 rounded-lg md:p-4">
+                  <div key={index} className="bg-[#f4f4f4] p-6 rounded-lg md:p-4">
                     <p className="text-lg md:text-md">Profile Views</p>
                     <p className="text-5xl font-semibold md:text-4xl">112</p>
                   </div>
                 ))}
             </div>
 
-            <button className="bg-[#7e012d] px-4 py-2 rounded-full w-1/2 border-2 border-transparent hover:border-purple-500 transition duration-300">
+            <button className="bg-[#7e012d] text-white px-4 py-2 rounded-full w-1/2 border-2 border-transparent hover:border-purple-500 transition duration-300">
               Log Out
             </button>
           </div>
@@ -80,7 +80,7 @@ const UserProfile = () => {
               <div className="right-content w-full md:w-1/2">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12626.249794535688!2d-122.41941876394634!3d37.77492957902448!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808c1fae5d47%3A0x10134b4722723218!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1674290287950!5m2!1sen!2sus"
-                  className="w-full h-48 rounded-lg"
+                  className="w-full h-48 shadow rounded-lg"
                   style={{ border: 0 }}
                   allowFullScreen=""
                   loading="lazy"
@@ -92,17 +92,17 @@ const UserProfile = () => {
             <div className="p-6 md:p-4">
               <strong>Skills</strong>
               <div className="flex flex-wrap gap-4 mt-2">
-                <div className="px-6 py-2 bg-[#7e012d] rounded-full">Node.js</div>
-                <div className="px-6 py-2 bg-[#7e012d] rounded-full">React</div>
-                <div className="px-6 py-2 bg-[#7e012d] rounded-full">JavaScript</div>
+                <div className="px-6 py-2 border border-[#7e012d] text-[#7e012d] rounded-full">Node.js</div>
+                <div className="px-6 py-2 border border-[#7e012d] text-[#7e012d] rounded-full">React</div>
+                <div className="px-6 py-2 border border-[#7e012d] text-[#7e012d] rounded-full">JavaScript</div>
               </div>
             </div>
             <div className="p-6 md:p-4">
               <strong>Preferences</strong>
               <div className="flex flex-wrap gap-4 mt-2">
-                <div className="px-6 py-2 bg-[#7e012d] rounded-full">Node.js</div>
-                <div className="px-6 py-2 bg-[#7e012d] rounded-full">React</div>
-                <div className="px-6 py-2 bg-[#7e012d] rounded-full">JavaScript</div>
+                <div className="px-6 py-2 border border-[#7e012d] text-[#7e012d] rounded-full">Node.js</div>
+                <div className="px-6 py-2 border border-[#7e012d] text-[#7e012d] rounded-full">React</div>
+                <div className="px-6 py-2 border border-[#7e012d] text-[#7e012d] rounded-full">JavaScript</div>
               </div>
             </div>
             <div className="p-6 md:p-4">
