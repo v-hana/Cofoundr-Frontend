@@ -10,6 +10,7 @@ import ProfileGrid from "./pages/ExploreProfiles";
 import SingleProfile from "./pages/SingleProfile";
 import AddPost from "./pages/AddPost";
 import Notifications from "./pages/Notifications";
+import EditProfile from "./pages/EditProfile";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/single-profile" element={<SingleProfile />} />
             <Route path="/add-post" element={<AddPost />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
           </Routes>
         </div>
       </Router>
