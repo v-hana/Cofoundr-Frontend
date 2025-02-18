@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { IoNotificationsOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -13,6 +15,7 @@ const Navbar = () => {
             src="https://via.placeholder.com/40"
             alt="Profile"
             className="w-14 h-14 rounded-full border-4 border-[#BAA7FC2E] transition duration-300 hover:border-purple-500"
+            onClick={() => navigate("/user-profile")}
           />
         </div>
         {/* Search Bar */}
@@ -29,17 +32,17 @@ const Navbar = () => {
         {/* Right-Side Icons */}
         <div>
           {/* Show all icons above 640px */}
-          <div className="hidden sm:flex items-center space-x-4">
-            <button className="text-[#010101b8]  text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300">
+          <div className="hidden sm:flex items-center space-x-4" >
+            <button className="text-[#010101b8]  text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300" onClick={() => navigate(" /notifications")}>
               <IoNotificationsOutline />
             </button>
-            <button className="text-[#010101b8] hover:text-white">
+            <button className="text-[#010101b8] hover:text-white" onClick={() => navigate(" /message")}>
               <i className="fas fa-envelope w-10 h-10 rounded-full  border-2 border-[#BAA7FC2E] flex justify-center items-center transition duration-300 hover:border-purple-500 hover:text-white"></i>
-            </button>
-            <button className="text-[#010101b8] hover:text-white">
+            </button >
+            <button className="text-[#010101b8] hover:text-white" onClick={() => navigate("/explore-profiles")}>
               <i className="fas fa-users w-10 h-10 rounded-full  border-2 border-[#BAA7FC2E] flex justify-center items-center transition duration-300 hover:border-purple-500 hover:text-white"></i>
             </button>
-            <button className="text-[#010101b8] hover:text-white">
+            <button className="text-[#010101b8] hover:text-white" onClick={() => navigate("/add-post")}>
               <i className="fas fa-plus w-10 h-10 rounded-full  border-2 border-[#BAA7FC2E] flex justify-center items-center transition duration-300 hover:border-purple-500 hover:text-white"></i>
             </button>
           </div>
@@ -76,7 +79,7 @@ const Navbar = () => {
             )}
           </div>
         </div>
-      </nav>
+      </nav >
     </>
   );
 };

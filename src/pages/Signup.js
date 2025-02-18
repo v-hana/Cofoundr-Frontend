@@ -118,7 +118,7 @@ const SignupForm = () => {
               type="text"
               placeholder="Full Name"
               {...register("name", { required: "Name is required." })}
-              className="w-full bg-[#fdfdfd] text-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
+              className="w-full bg-[#fdfdfd] text-black p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
             />
             {errors.name && (
               <p className="text-red-500 text-sm">{errors.name.message}</p>
@@ -135,7 +135,7 @@ const SignupForm = () => {
                   message: "Invalid email format.",
                 },
               })}
-              className="w-full bg-[#fdfdfd] text-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
+              className="w-full bg-[#fdfdfd] text-black p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -152,7 +152,7 @@ const SignupForm = () => {
                   message: "Password must be at least 6 characters.",
                 },
               })}
-              className="w-full bg-[#fdfdfd] text-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
+              className="w-full bg-[#fdfdfd] text-black p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
             />
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password.message}</p>
@@ -168,7 +168,7 @@ const SignupForm = () => {
                   value ===
                   watch("password") || "Passwords do not match.",
               })}
-              className="w-full bg-[#fdfdfd] text-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
+              className="w-full bg-[#fdfdfd] text-black p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
             />
             {errors.confirmPassword && (
               <p className="text-red-500 text-sm">

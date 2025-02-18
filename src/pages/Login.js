@@ -2,9 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { loginUser } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";
+
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { error, loading } = useSelector((state) => state.auth);
 
   const {
@@ -14,8 +17,13 @@ const LoginForm = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(loginUser(data));
+    dispatch(loginUser(data)).then((result) => {
+      if (result.type === "auth/loginUser/fulfilled") {
+        navigate("/home"); // Redirect to user profile after login
+      }
+    });
   };
+
 
   return (
     <div
