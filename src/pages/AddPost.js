@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function AddPost() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [fileName, setFileName] = useState("");
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
@@ -20,7 +21,8 @@ function AddPost() {
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedImage(URL.createObjectURL(file));
+      setSelectedFile(file); // ✅ Store actual file
+      setSelectedImage(URL.createObjectURL(file)); // Keep preview for UI
       setFileName(file.name);
     }
   };
@@ -40,7 +42,7 @@ function AddPost() {
     }
 
     // Dispatch the addPost action
-    dispatch(addPost({ userId, content, category, image: selectedImage, token }))
+    dispatch(addPost({ userId, content, category, image: selectedFile, token }))
       .then(() => {
         navigate("/home"); // Redirect after post creation
       })
@@ -61,7 +63,7 @@ function AddPost() {
               <p className="text-sm font-semibold mb-2 text-[#010101]">CONTENT</p>
             </div>
             <textarea
-              className="w-full bg-[#f6f6f6] border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full bg-[#f6f6f6] border p-3 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-purple-500"
               rows="4"
               placeholder="Write your content here..."
               value={content}
@@ -75,7 +77,7 @@ function AddPost() {
             </div>
             <input
               type="text"
-              className="w-full bg-[#f6f6f6] border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full bg-[#f6f6f6] border p-3 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               placeholder="Enter category..."
               value={category}
               onChange={(e) => setCategory(e.target.value)}

@@ -20,8 +20,15 @@ export const fetchPosts = createAsyncThunk(
 );
 export const addPost = createAsyncThunk(
   'posts/addPost',
-  async ({ userId, content, category, image, token }, { rejectWithValue }) => {
+  async ({ content, category, image, token }, { rejectWithValue }) => {
     try {
+      const response = await axios.get('/api/user-profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log(response.data.user);
+
+      const userId = response.data.user._id; // Get userId from authenticated user
+
       const formData = new FormData();
       formData.append('userId', userId);
       formData.append('content', content);
@@ -30,13 +37,14 @@ export const addPost = createAsyncThunk(
         formData.append('image', image);
       }
 
-      const response = await axios.post('/api/add-post', formData, {
+      const postResponse = await axios.post('/api/add-post', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
         },
       });
-      return response.data; // Return the newly created post from the backend
+
+      return postResponse.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Something went wrong');
     }

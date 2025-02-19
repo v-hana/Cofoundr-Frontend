@@ -12,9 +12,12 @@ export const fetchUserProfile = createAsyncThunk('user/fetchUserProfile', async 
 });
 
 // Update User Profile
-export const updateUserProfile = createAsyncThunk("user/updateProfile", async (updatedData, { rejectWithValue }) => {
+export const updateUserProfile = createAsyncThunk("user/updateProfile", async ({ name, profilePhoto, location, preferences, skills, interests, experience }, { rejectWithValue }) => {
   try {
-    const response = await axios.put("/api/edit-profile", updatedData);
+    const response = await axios.put("/api/auth/edit-profile", { name, profilePhoto, location, preferences, skills, interests, experience }, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      withCredentials: true
+    });
     return response.data.user;
   } catch (error) {
     return rejectWithValue(error.response.data);

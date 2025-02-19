@@ -41,8 +41,9 @@ const Home = () => {
           posts.map((post, index) => (
             <PostCard
               key={index}
-              name={post.name}
-              date={post.date}
+              profileImage={post.userId?.profilePhoto || "/default-profile.png"}
+              name={post.userId?.name || "Unknown User"}
+              date={post.createdAt}
               content={post.content}
               image={post.image}
             />

@@ -54,7 +54,7 @@ const LoginForm = () => {
                   message: "Invalid email format",
                 },
               })}
-              className="w-full bg-[#f6f6f6] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
+              className="w-full bg-[#f6f6f6] text-black p-3 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mb-4">{errors.email.message}</p>
@@ -71,7 +71,7 @@ const LoginForm = () => {
                   message: "Password must be at least 6 characters",
                 },
               })}
-              className="w-full bg-[#f6f6f6] text-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
+              className="w-full bg-[#f6f6f6] text-black p-3 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
             />
             {errors.password && (
               <p className="text-red-500 text-sm mb-4">{errors.password.message}</p>

@@ -55,6 +55,14 @@ const UserProfile = () => {
                 <p className="text-lg md:text-md">Profile Views</p>
                 <p className="text-5xl font-semibold md:text-4xl">{user?.profileViews || 0}</p>
               </div>
+              <div className="bg-[#f4f4f4] p-6 rounded-lg md:p-4">
+                <p className="text-lg md:text-md">Interests</p>
+                <p className="text-5xl font-semibold md:text-4xl">{user?.interests || 0}</p>
+              </div>
+              <div className="bg-[#f4f4f4] p-6 rounded-lg md:p-4">
+                <p className="text-lg md:text-md">Impressions</p>
+                <p className="text-5xl font-semibold md:text-4xl">{user?.impressions || 0}</p>
+              </div>
             </div>
             <button className="bg-[#7e012d] text-white px-4 py-2 rounded-full w-1/2 border-2 border-transparent hover:border-purple-500 transition duration-300">
               Log Out
@@ -70,18 +78,17 @@ const UserProfile = () => {
             {/* Address & Map */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-6 md:gap-0">
               <div className="p-6 md:p-4">
-                <strong>{user?.location?.city}, {user?.location?.country}</strong>
+                <strong>{user?.location} {user?.location?.country}</strong>
                 <p className="text-[#7A7685]">
                   {user?.location?.address} <br />
-                  {user?.location?.city}, {user?.location?.state} {user?.location?.zipCode}
-                  <br />
-                  {user?.phone || "Phone not available"}
+                  {user?.location?.city} {user?.location?.state} {user?.location?.zipCode}
+
                 </p>
               </div>
 
               <div className="right-content w-full md:w-1/2">
                 <iframe
-                  src={`https://www.google.com/maps/embed/v1/place?q=${encodeURIComponent(user?.location?.address)}&key=YOUR_GOOGLE_MAPS_API_KEY`}
+                  src={`https://www.google.com/maps/embed/v1/place?q=${encodeURIComponent(user?.location)}&key=YOUR_GOOGLE_MAPS_API_KEY`}
                   className="w-full h-48 shadow rounded-lg"
                   style={{ border: 0 }}
                   allowFullScreen=""
@@ -116,7 +123,7 @@ const UserProfile = () => {
             <div className="p-6 md:p-4">
               <strong>Experience</strong>
               <p className="text-[#7A7685]">
-                {user?.experience?.years} years / {user?.experience?.consultations}+ consultations
+                {user?.experience} years
               </p>
             </div>
           </div>
@@ -151,22 +158,30 @@ const UserProfile = () => {
               1024: { slidesPerView: 4 },
             }}
           >
-            {posts.map((post, index) => (
-              <SwiperSlide key={index}>
-                <div className="bg-white rounded-lg shadow-md p-4 relative">
-                  <img
-                    src={post.image || "https://i.ibb.co/NNrkBBv/a-young-asian-woman-walking-inside-a-modern-wooden-building-1536x1024-3-1.png"}
-                    alt="Post Image"
-                    className="w-full h-40 object-cover rounded-lg"
-                  />
-                  <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
-                    <FontAwesomeIcon icon={faPen} />
-                  </button>
-                  <p className="text-sm text-[#7A7685] mt-2">{post.content}</p>
-                  <p className="text-xs text-gray-500 absolute bottom-2 right-2">{post.createdAt}</p>
-                </div>
-              </SwiperSlide>
-            ))}
+            {posts.map((post, index) => {
+              const baseURL = "http://localhost:5000/"; // Change this to match your backend URL
+              const imageUrl = post.image ? `${baseURL}${post.image}` : "https://via.placeholder.com/150";
+              console.log(imageUrl);
+
+              return (
+
+                < SwiperSlide key={index} >
+
+                  <div className="bg-white rounded-lg shadow-md p-4 relative">
+                    <img
+                      src={imageUrl}
+                      alt="Post Image"
+                      className="w-full h-40 object-cover rounded-lg"
+                    />
+                    <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
+                      <FontAwesomeIcon icon={faPen} />
+                    </button>
+                    <p className="text-sm text-[#7A7685] mt-2">{post.content}</p>
+                    <p className="text-xs text-gray-500 absolute bottom-2 right-2">{post.createdAt}</p>
+                  </div>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
 
@@ -217,8 +232,8 @@ const UserProfile = () => {
             ))}
           </Swiper>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

@@ -6,17 +6,20 @@ import { useNavigate } from "react-router-dom";
 const EditProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, status } = useSelector((state) => state.user);
+  const { user, status, error } = useSelector((state) => state.user);
 
   const [formData, setFormData] = useState({
     name: "",
     profilePhoto: "",
     experience: "",
     location: "",
-    preference: "",
+    preferences: "",
     skills: "",
     interests: "",
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (!user) {
@@ -27,26 +30,39 @@ const EditProfile = () => {
         profilePhoto: user.profilePhoto || "",
         experience: user.experience || "",
         location: user.location || "",
-        preference: user.preference || "",
+        preferences: user.preferences ? user.preferences.join(", ") : "",
         skills: user.skills ? user.skills.join(", ") : "",
-        interests: user.interests ? user.interests.join(", ") : "",
       });
     }
   }, [user, dispatch]);
+
+  console.log(user, String);
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setMessage("");
+
     const updatedData = {
       ...formData,
       skills: formData.skills.split(",").map((skill) => skill.trim()),
-      interests: formData.interests.split(",").map((interest) => interest.trim()),
+      preferences: formData.preferences.split(",").map((preference) => preference.trim()),
     };
-    dispatch(updateUserProfile(updatedData));
-    navigate("/user-profile");
+
+    try {
+      await dispatch(updateUserProfile(updatedData)).unwrap();
+      setMessage("Profile updated successfully!");
+      setTimeout(() => navigate("/user-profile"), 2000); // Redirect after 2 sec
+    } catch (error) {
+      setMessage(error.message || "Failed to update profile.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (status === "loading") {
@@ -56,6 +72,16 @@ const EditProfile = () => {
   return (
     <div className="max-w-3xl mx-auto bg-white p-8 shadow-md rounded-md mt-10">
       <h2 className="text-2xl font-bold text-center mb-6">Edit Profile</h2>
+
+      {message && (
+        <div
+          className={`text-center p-2 mb-4 rounded ${message.includes("successfully") ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
+            }`}
+        >
+          {message}
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Name */}
         <div>
@@ -107,11 +133,11 @@ const EditProfile = () => {
 
         {/* Preferences */}
         <div>
-          <label className="block text-gray-700">Preferences</label>
+          <label className="block text-gray-700">Preferences(comma separated)</label>
           <input
             type="text"
-            name="preference"
-            value={formData.preference}
+            name="preferences"
+            value={formData.preferences}
             onChange={handleChange}
             className="w-full px-4 py-2 border rounded-md"
           />
@@ -129,25 +155,19 @@ const EditProfile = () => {
           />
         </div>
 
-        {/* Interests */}
-        <div>
-          <label className="block text-gray-700">Interests (comma separated)</label>
-          <input
-            type="text"
-            name="interests"
-            value={formData.interests}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md"
-          />
-        </div>
+
 
         {/* Submit Button */}
         <div className="text-center">
           <button
             type="submit"
-            className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
+            disabled={isSubmitting}
+            className={`px-6 py-2 rounded-md transition ${isSubmitting
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-blue-600 text-white hover:bg-blue-700"
+              }`}
           >
-            Save Changes
+            {isSubmitting ? "Saving..." : "Save Changes"}
           </button>
         </div>
       </form>
