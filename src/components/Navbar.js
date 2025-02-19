@@ -33,10 +33,10 @@ const Navbar = () => {
         <div>
           {/* Show all icons above 640px */}
           <div className="hidden sm:flex items-center space-x-4" >
-            <button className="text-[#010101b8]  text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300" onClick={() => navigate(" /notifications")}>
+            <button className="text-[#010101b8]  text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300" onClick={() => navigate("/notifications")}>
               <IoNotificationsOutline />
             </button>
-            <button className="text-[#010101b8] hover:text-white" onClick={() => navigate(" /message")}>
+            <button className="text-[#010101b8] hover:text-white" onClick={() => navigate("/message")}>
               <i className="fas fa-envelope w-10 h-10 rounded-full  border-2 border-[#BAA7FC2E] flex justify-center items-center transition duration-300 hover:border-purple-500 hover:text-white"></i>
             </button >
             <button className="text-[#010101b8] hover:text-white" onClick={() => navigate("/explore-profiles")}>
