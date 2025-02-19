@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect }  from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -11,8 +11,12 @@ import SingleProfile from "./pages/SingleProfile";
 import AddPost from "./pages/AddPost";
 import Notifications from "./pages/Notifications";
 import EditProfile from "./pages/EditProfile";
+import { requestNotificationPermission } from "../src/firebase";
 
 const App = () => {
+  useEffect(() => {
+    requestNotificationPermission();
+  }, []);
   return (
     <Provider store={store}>
       <Router>
