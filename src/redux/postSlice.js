@@ -127,8 +127,12 @@ const postSlice = createSlice({
       })
 
       .addCase(sendInterest.fulfilled, (state, action) => {
+        if (!state.interests) {
+            state.interests = []; // Initialize if undefined
+        }
         state.interests.push(action.payload);
-      });
+    });
+    
   },
 });
 
