@@ -10,13 +10,7 @@ export const fetchUserProfile = createAsyncThunk('user/fetchUserProfile', async 
     return rejectWithValue(error.response.data);
   }
 });
-// Get Saved Posts
-export const fetchSavedPosts = createAsyncThunk("posts/fetchSavedPosts", async (token) => {
-  const response = await axios.get(`http://localhost:5000/api/saved`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
-});
+
 
 // Update User Profile
 export const updateUserProfile = createAsyncThunk("user/updateProfile", async ({ name, profilePhoto, location, preferences, skills, interests, experience }, { rejectWithValue }) => {
@@ -29,6 +23,21 @@ export const updateUserProfile = createAsyncThunk("user/updateProfile", async ({
   } catch (error) {
     return rejectWithValue(error.response.data);
   }
+});
+
+// Get Saved Posts
+export const fetchSavedPosts = createAsyncThunk("posts/fetchSavedPosts", async (token) => {
+  const response = await axios.get(`http://localhost:5000/api/saved`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+});
+export const removeSavedPost = createAsyncThunk("posts/removeSavedPost", async ({ postId, token }) => {
+
+  await axios.delete(`http://localhost:5000/api/saved/${postId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return postId;
 });
 
 const userSlice = createSlice({
@@ -63,11 +72,14 @@ const userSlice = createSlice({
       })
       .addCase(fetchSavedPosts.fulfilled, (state, action) => {
         state.savedStatus = "succeeded";
-        state.saved = action.payload; // Ensure backend returns an array of saved posts
+        state.savedposts = action.payload; // Ensure backend returns an array of saved posts
       })
       .addCase(fetchSavedPosts.rejected, (state, action) => {
         state.savedStatus = "failed";
         state.error = action.error.message;
+      })
+      .addCase(removeSavedPost.fulfilled, (state, action) => {
+        state.savedposts = state.savedposts.filter((post) => post._id !== action.payload);
       });
   },
 });

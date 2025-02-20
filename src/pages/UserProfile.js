@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserProfile, fetchSavedPosts } from "../redux/userSlice";
+import { fetchUserProfile, fetchSavedPosts, removeSavedPost } from "../redux/userSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ import { Link } from "react-router-dom"; // Import Link for navigation
 import { RiArrowLeftDoubleFill } from "react-icons/ri";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { BiSolidEdit } from "react-icons/bi";
+import { FaRegBookmark } from "react-icons/fa";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -23,11 +24,19 @@ const UserProfile = () => {
     dispatch(fetchUserProfile());
     dispatch(fetchSavedPosts());
   }, [dispatch]);
-
+  const handleRemoveSavedPost = (postId) => {
+    if (!postId) {
+      console.error("Post ID is undefined");
+      return;
+    }
+    dispatch(removeSavedPost(postId));
+  };
   const handleSwipe = (swiperRef, direction) => {
     if (!swiperRef.current) return;
     direction === "next" ? swiperRef.current.slideNext() : swiperRef.current.slidePrev();
   };
+
+
 
   // Loading state handling
   if (status === "loading") {
@@ -229,23 +238,28 @@ const UserProfile = () => {
               }}
             >
 
-              {savedposts.map((post, index) => (
-                <SwiperSlide key={index}>
-                  <div className="bg-white rounded-lg shadow-md p-4 relative">
-                    <img
-                      src={post.image || "https://i.ibb.co/NNrkBBv/a-young-asian-woman-walking-inside-a-modern-wooden-building-1536x1024-3-1.png"}
-                      alt="Post Image"
-                      className="w-full h-40 object-cover rounded-lg"
-                    />
-                    <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
-                      <FontAwesomeIcon icon={faBookmark} />
-                    </button>
-                    <p className="text-sm text-[#7A7685] mt-2">{post.content}</p>
-                    <p className="text-xs text-gray-500 absolute bottom-2 right-2">{post.createdAt}</p>
-                  </div>
-                </SwiperSlide>
-              )
-              )}
+              {savedposts.map((post, index) => {
+
+                const baseURL = "http://localhost:5000/"; // Change this to match your backend URL
+                const imageUrl = post.image ? `${baseURL}${post.image}` : "https://via.placeholder.com/150";
+                console.log(imageUrl);
+                return (
+                  < SwiperSlide key={index} >
+                    <div className="bg-white rounded-lg shadow-md p-4 relative">
+                      <img
+                        src={imageUrl}
+                        alt="Post Image"
+                        className="w-full h-40 object-cover rounded-lg"
+                      />
+                      <button onClick={() => handleRemoveSavedPost(post._id)} className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
+                        <FaRegBookmark />
+                      </button>
+                      <p className="text-sm text-[#7A7685] mt-2 mb-2">{post.content}</p>
+                      <p className="text-xs text-gray-500 absolute bottom-0 right-2 mb-2">{post.createdAt}</p>
+                    </div>
+                  </SwiperSlide>
+                );
+              })}
             </Swiper>
           )}
         </div>

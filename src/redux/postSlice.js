@@ -123,16 +123,16 @@ const postSlice = createSlice({
         state.savedPosts.push(action.payload);
       })
       .addCase(removeSavedPost.fulfilled, (state, action) => {
-        state.savedPosts = state.savedPosts.filter((id) => id !== action.payload);
+        state.savedposts = state.savedposts.filter((post) => post._id !== action.payload);
       })
 
       .addCase(sendInterest.fulfilled, (state, action) => {
         if (!state.interests) {
-            state.interests = []; // Initialize if undefined
+          state.interests = []; // Initialize if undefined
         }
         state.interests.push(action.payload);
-    });
-    
+      });
+
   },
 });
 
