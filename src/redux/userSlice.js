@@ -10,6 +10,13 @@ export const fetchUserProfile = createAsyncThunk('user/fetchUserProfile', async 
     return rejectWithValue(error.response.data);
   }
 });
+// Get Saved Posts
+export const fetchSavedPosts = createAsyncThunk("posts/fetchSavedPosts", async (token) => {
+  const response = await axios.get(`http://localhost:5000/api/saved`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+});
 
 // Update User Profile
 export const updateUserProfile = createAsyncThunk("user/updateProfile", async ({ name, profilePhoto, location, preferences, skills, interests, experience }, { rejectWithValue }) => {
@@ -29,6 +36,7 @@ const userSlice = createSlice({
   initialState: {
     user: null,
     posts: [],
+    savedposts: [],
     status: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
     error: null,
   },
@@ -49,6 +57,17 @@ const userSlice = createSlice({
       })
       .addCase(updateUserProfile.fulfilled, (state, action) => {
         state.user = action.payload;
+      })
+      .addCase(fetchSavedPosts.pending, (state) => {
+        state.savedStatus = "loading";
+      })
+      .addCase(fetchSavedPosts.fulfilled, (state, action) => {
+        state.savedStatus = "succeeded";
+        state.saved = action.payload; // Ensure backend returns an array of saved posts
+      })
+      .addCase(fetchSavedPosts.rejected, (state, action) => {
+        state.savedStatus = "failed";
+        state.error = action.error.message;
       });
   },
 });

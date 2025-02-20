@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserProfile } from "../redux/userSlice";
+import { fetchUserProfile, fetchSavedPosts } from "../redux/userSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,12 +15,13 @@ import "swiper/css/pagination";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
-  const { user, posts = [], saved = [], status } = useSelector((state) => state.user);
+  const { user, posts = [], savedposts = [], status } = useSelector((state) => state.user);
   const postsSwiperRef = useRef(null);
   const savedSwiperRef = useRef(null);
 
   useEffect(() => {
     dispatch(fetchUserProfile());
+    dispatch(fetchSavedPosts());
   }, [dispatch]);
 
   const handleSwipe = (swiperRef, direction) => {
@@ -212,33 +213,41 @@ const UserProfile = () => {
               </button>
             </div>
           </div>
-          <Swiper
-            modules={[Navigation, Pagination]}
-            onSwiper={(swiper) => (savedSwiperRef.current = swiper)}
-            spaceBetween={20}
-            slidesPerView={1}
-            breakpoints={{
-              640: { slidesPerView: 2 },
-              1024: { slidesPerView: 4 },
-            }}
-          >
-            {saved.map((post, index) => (
-              <SwiperSlide key={index}>
-                <div className="bg-white rounded-lg shadow-md p-4 relative">
-                  <img
-                    src={post.image || "https://i.ibb.co/NNrkBBv/a-young-asian-woman-walking-inside-a-modern-wooden-building-1536x1024-3-1.png"}
-                    alt="Post Image"
-                    className="w-full h-40 object-cover rounded-lg"
-                  />
-                  <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
-                    <FontAwesomeIcon icon={faBookmark} />
-                  </button>
-                  <p className="text-sm text-[#7A7685] mt-2">{post.content}</p>
-                  <p className="text-xs text-gray-500 absolute bottom-2 right-2">{post.createdAt}</p>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {status === "loading" ? (
+            <p>Loading saved posts...</p>
+          ) : savedposts.length === 0 ? (
+            <p>No saved posts found.</p>
+          ) : (
+            <Swiper
+              modules={[Navigation, Pagination]}
+              onSwiper={(swiper) => (savedSwiperRef.current = swiper)}
+              spaceBetween={20}
+              slidesPerView={1}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 4 },
+              }}
+            >
+
+              {savedposts.map((post, index) => (
+                <SwiperSlide key={index}>
+                  <div className="bg-white rounded-lg shadow-md p-4 relative">
+                    <img
+                      src={post.image || "https://i.ibb.co/NNrkBBv/a-young-asian-woman-walking-inside-a-modern-wooden-building-1536x1024-3-1.png"}
+                      alt="Post Image"
+                      className="w-full h-40 object-cover rounded-lg"
+                    />
+                    <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
+                      <FontAwesomeIcon icon={faBookmark} />
+                    </button>
+                    <p className="text-sm text-[#7A7685] mt-2">{post.content}</p>
+                    <p className="text-xs text-gray-500 absolute bottom-2 right-2">{post.createdAt}</p>
+                  </div>
+                </SwiperSlide>
+              )
+              )}
+            </Swiper>
+          )}
         </div>
       </div >
     </div >

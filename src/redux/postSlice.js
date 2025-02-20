@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../api/axios';
-
+const API_URL = "http://localhost:5000/api";
 // Create an async thunk for fetching posts
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
@@ -51,11 +51,44 @@ export const addPost = createAsyncThunk(
   }
 );
 
+export const savePost = createAsyncThunk("posts/savePost", async ({ postId, token }) => {
+  const response = await axios.post(
+    `http://localhost:5000/api/save/${postId}`,
+    {},
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return postId;
+});
+
+// Remove Saved Post
+export const removeSavedPost = createAsyncThunk("posts/removeSavedPost", async ({ postId, token }) => {
+
+  await axios.delete(`http://localhost:5000/api/saved/${postId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return postId;
+});
+
+
+
+export const sendInterest = createAsyncThunk("posts/sendInterest", async ({ postId, token }) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/interest/${postId}`,
+      {},
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Failed to send interest");
+  }
+});
 
 const postSlice = createSlice({
   name: 'posts',
   initialState: {
     posts: [],
+    savedPosts: [],
     loading: false,
     error: null,
   },
@@ -85,6 +118,16 @@ const postSlice = createSlice({
       .addCase(addPost.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload; // Store the error message from API
+      })
+      .addCase(savePost.fulfilled, (state, action) => {
+        state.savedPosts.push(action.payload);
+      })
+      .addCase(removeSavedPost.fulfilled, (state, action) => {
+        state.savedPosts = state.savedPosts.filter((id) => id !== action.payload);
+      })
+
+      .addCase(sendInterest.fulfilled, (state, action) => {
+        state.interests.push(action.payload);
       });
   },
 });
