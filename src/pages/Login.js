@@ -27,12 +27,12 @@ const LoginForm = () => {
 
   return (
     <div
-      className="flex h-screen bg-cover bg-[#f6f6f6] bg-center items-center justify-center"
+      className="flex bg-cover bg-[#f6f6f6] bg-center items-center justify-center"
       style={{
         backgroundImage: "url('https://via.placeholder.com/1920x1080')",
       }}
     >
-      <div className="bg-[#fdfdfd] bg-opacity-21 border  p-10 rounded-lg shadow-lg w-full max-w-lg">
+      <div className="bg-[#fdfdfd] bg-opacity-21 border mt-8 p-10 rounded-lg shadow-lg w-full max-w-lg">
         <h2 className="text-3xl font-bold text-[#010101] mb-4 text-center">
           Login to your Account
         </h2>

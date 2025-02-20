@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <div className="bg-[#f6f6f6] min-h-screen">
       {/* Navbar */}
-      <Navbar />
+      < Navbar />
       <hr className="border-y border-[#e2e2e2] h-px" />
       <div>Error: {error}</div>;
       {/* Posts */}
@@ -50,7 +50,7 @@ const Home = () => {
           ))
         )}
       </div>
-    </div>
+    </div >
   );
 };
 export default Home;

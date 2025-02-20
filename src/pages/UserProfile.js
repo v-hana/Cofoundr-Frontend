@@ -6,6 +6,9 @@ import { Navigation, Pagination } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark, faPen, faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom"; // Import Link for navigation
+import { RiArrowLeftDoubleFill } from "react-icons/ri";
+import { BiSolidEditAlt } from "react-icons/bi";
+import { BiSolidEdit } from "react-icons/bi";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -35,15 +38,20 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="text-black">
+    <div className="text-black bg-[#f6f6f6] p-6">
+
       <div className="mx-auto h-full bg-[#f6f6f6] px-6 sm:px-10 lg:px-20 py-10">
+
         {/* Profile Section */}
         <div className="flex flex-col lg:flex-row md:flex-row gap-8 rounded-lg">
           {/* Left Profile Card */}
           <div className="relative flex flex-col items-center justify-center gap-8 w-full lg:w-1/3 md:1/2 bg-white shadow rounded-lg text-center p-6">
+            <Link to="/home" className="absolute top-2 left-2 text-[#2D2638] p-2 rounded transition duration-300 hover:scale-110">
+              <RiArrowLeftDoubleFill className="mb-2 text-2xl" />
+            </Link>
             {/* Link to EditProfile Page */}
             <Link to="/edit-profile" className="absolute top-2 right-2 text-[#2D2638] p-2 rounded transition duration-300 hover:scale-110">
-              <FontAwesomeIcon icon={faPen} />
+              <BiSolidEditAlt className="mb-2 text-2xl" />
             </Link>
             <img
               src={user?.profilePhoto || "https://i.ibb.co/WpXfyPL/Ellipse-2.png"}
@@ -174,10 +182,10 @@ const UserProfile = () => {
                       className="w-full h-40 object-cover rounded-lg"
                     />
                     <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
-                      <FontAwesomeIcon icon={faPen} />
+                      <BiSolidEdit className=" text-xl" />
                     </button>
-                    <p className="text-sm text-[#7A7685] mt-2">{post.content}</p>
-                    <p className="text-xs text-gray-500 absolute bottom-2 right-2">{post.createdAt}</p>
+                    <p className="text-sm text-[#7A7685] mt-2 mb-2">{post.content}</p>
+                    <p className="text-xs text-gray-500 absolute  bottom-0 right-2 mb-2 ">{post.createdAt}</p>
                   </div>
                 </SwiperSlide>
               );
