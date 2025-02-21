@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { requestNotificationPermission, onMessageListener } from "../firebase";
+import { requestForToken, onMessageListener } from "../firebase";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -7,9 +7,15 @@ const Notifications = () => {
 
   useEffect(() => {
     const getToken = async () => {
-      await requestNotificationPermission();
+      console.log("tokenee");
+      const token = await requestForToken();
     };
-    getToken();
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        console.log("Notification permission granted.");
+        getToken();
+      }
+    });
 
     // Listen for new messages
     onMessageListener()
@@ -30,7 +36,9 @@ const Notifications = () => {
   }, []);
 
   const loadMore = () => {
-    setVisibleCount((prevCount) => Math.min(prevCount + 4, notifications.length));
+    setVisibleCount((prevCount) =>
+      Math.min(prevCount + 4, notifications.length)
+    );
   };
 
   return (
@@ -45,21 +53,33 @@ const Notifications = () => {
       <div className="mt-4">
         <div className="space-y-6 relative">
           {notifications.slice(0, visibleCount).map((notification) => (
-            <div key={notification.id} className="relative flex flex-col sm:flex-row items-start bg-white shadow-md p-4 rounded-lg">
+            <div
+              key={notification.id}
+              className="relative flex flex-col sm:flex-row items-start bg-white shadow-md p-4 rounded-lg"
+            >
               <div className="w-10 h-10 flex items-center justify-center bg-gray-300 rounded-full">
                 {notification.avatar ? (
-                  <img src={notification.avatar} alt="avatar" className="w-full h-full rounded-full" />
+                  <img
+                    src={notification.avatar}
+                    alt="avatar"
+                    className="w-full h-full rounded-full"
+                  />
                 ) : (
-                  <span className="text-gray-700 font-semibold">{notification.user.charAt(0)}</span>
+                  <span className="text-gray-700 font-semibold">
+                    {notification.user.charAt(0)}
+                  </span>
                 )}
               </div>
 
               <div className="ml-4 flex-1 md:flex justify-between items-center">
                 <div>
                   <p className="text-sm">
-                    <span className="font-semibold">{notification.user}</span> {notification.message}
+                    <span className="font-semibold">{notification.user}</span>{" "}
+                    {notification.message}
                   </p>
-                  <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    {notification.time}
+                  </p>
                 </div>
 
                 <div className="flex gap-2 mt-2 sm:mt-0 sm:ml-auto flex-wrap">
@@ -91,7 +111,10 @@ const Notifications = () => {
 
       {visibleCount < notifications.length && (
         <div className="flex justify-center mt-6">
-          <button onClick={loadMore} className="bg-[#7e012d] text-white px-6 py-2 rounded-lg border hover:border-gray-500 transition">
+          <button
+            onClick={loadMore}
+            className="bg-[#7e012d] text-white px-6 py-2 rounded-lg border hover:border-gray-500 transition"
+          >
             Load more
           </button>
         </div>

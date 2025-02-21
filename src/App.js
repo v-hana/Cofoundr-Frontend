@@ -11,11 +11,32 @@ import SingleProfile from "./pages/SingleProfile";
 import AddPost from "./pages/AddPost";
 import Notifications from "./pages/Notifications";
 import EditProfile from "./pages/EditProfile";
-import { requestNotificationPermission } from "../src/firebase";
+import { requestForToken} from "../src/firebase";
+import axios from 'axios';
+
 
 const App = () => {
   useEffect(() => {
-    requestNotificationPermission();
+    const saveFcmToken = async () => {
+      const token = await requestForToken();
+      if (token) {
+        try {
+          await axios.post('/api/notifications/save-fcm-token', 
+            { fcmToken: token }, 
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+              },
+            }
+          );
+          console.log('FCM Token saved successfully');
+        } catch (error) {
+          console.error('Failed to save FCM token:', error);
+        }
+      }
+    };
+
+    saveFcmToken();
   }, []);
   return (
     <Provider store={store}>
