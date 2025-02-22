@@ -32,13 +32,20 @@ export const fetchSavedPosts = createAsyncThunk("posts/fetchSavedPosts", async (
   });
   return response.data;
 });
-export const removeSavedPost = createAsyncThunk("posts/removeSavedPost", async ({ postId, token }) => {
+export const removeSavedPost = createAsyncThunk(
+  "posts/removeSavedPost",
+  async ({ postId, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/saved/${postId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return postId; // Return the post ID to filter it out in the reducer
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
-  await axios.delete(`http://localhost:5000/api/saved/${postId}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return postId;
-});
 
 const userSlice = createSlice({
   name: 'user',
@@ -79,8 +86,12 @@ const userSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(removeSavedPost.fulfilled, (state, action) => {
-        state.savedposts = state.savedposts.filter((post) => post._id !== action.payload);
+        if (!state.savedPosts) {
+          state.savedPosts = [];
+        }
+        state.savedPosts = state.savedPosts.filter(post => post._id !== action.payload);
       });
+
   },
 });
 

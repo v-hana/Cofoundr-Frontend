@@ -4,12 +4,13 @@ import { fetchUserProfile, fetchSavedPosts, removeSavedPost } from "../redux/use
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark, faPen, faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 import { RiArrowLeftDoubleFill } from "react-icons/ri";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { BiSolidEdit } from "react-icons/bi";
 import { FaRegBookmark } from "react-icons/fa";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -17,28 +18,33 @@ import "swiper/css/pagination";
 const UserProfile = () => {
   const dispatch = useDispatch();
   const { user, posts = [], savedposts = [], status } = useSelector((state) => state.user);
+
+
   const postsSwiperRef = useRef(null);
   const savedSwiperRef = useRef(null);
+
+
 
   useEffect(() => {
     dispatch(fetchUserProfile());
     dispatch(fetchSavedPosts());
   }, [dispatch]);
+
   const handleRemoveSavedPost = (postId) => {
     if (!postId) {
       console.error("Post ID is undefined");
       return;
     }
-    dispatch(removeSavedPost(postId));
+    const token = localStorage.getItem("token"); // Ensure token is retrieved
+    dispatch(removeSavedPost({ postId, token }));
   };
+
   const handleSwipe = (swiperRef, direction) => {
     if (!swiperRef.current) return;
     direction === "next" ? swiperRef.current.slideNext() : swiperRef.current.slidePrev();
   };
 
 
-
-  // Loading state handling
   if (status === "loading") {
     return <div>Loading...</div>;
   }
@@ -179,12 +185,12 @@ const UserProfile = () => {
             {posts.map((post, index) => {
               const baseURL = "http://localhost:5000/"; // Change this to match your backend URL
               const imageUrl = post.image ? `${baseURL}${post.image}` : "https://via.placeholder.com/150";
+
               console.log(imageUrl);
 
               return (
 
-                < SwiperSlide key={index} >
-
+                <SwiperSlide key={index}>
                   <div className="bg-white rounded-lg shadow-md p-4 relative">
                     <img
                       src={imageUrl}
@@ -194,10 +200,17 @@ const UserProfile = () => {
                     <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
                       <BiSolidEdit className=" text-xl" />
                     </button>
-                    <p className="text-sm text-[#7A7685] mt-2 mb-2">{post.content}</p>
-                    <p className="text-xs text-gray-500 absolute  bottom-0 right-2 mb-2 ">{post.createdAt}</p>
+
+                    <p className="text-sm text-[#7A7685] mt-2 mb-2">
+                      {post.content}
+                    </p>
+
+                    <p className="text-xs text-gray-500 absolute bottom-0 right-2 mb-2">
+                      {post.createdAt}
+                    </p>
                   </div>
                 </SwiperSlide>
+
               );
             })}
           </Swiper>
@@ -241,7 +254,7 @@ const UserProfile = () => {
               {savedposts.map((post, index) => {
 
                 const baseURL = "http://localhost:5000/"; // Change this to match your backend URL
-                const imageUrl = post.image ? `${baseURL}${post.image}` : "https://via.placeholder.com/150";
+                const imageUrl = post.image ? `${baseURL}${post.image} ` : "https://via.placeholder.com/150";
                 console.log(imageUrl);
                 return (
                   < SwiperSlide key={index} >

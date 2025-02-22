@@ -61,13 +61,19 @@ export const savePost = createAsyncThunk("posts/savePost", async ({ postId, toke
 });
 
 // Remove Saved Post
-export const removeSavedPost = createAsyncThunk("posts/removeSavedPost", async ({ postId, token }) => {
-
-  await axios.delete(`http://localhost:5000/api/saved/${postId}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return postId;
-});
+export const removeSavedPost = createAsyncThunk(
+  "posts/removeSavedPost",
+  async ({ postId, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/saved/${postId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return postId; // Return the post ID to filter it out in the reducer
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 
 
@@ -122,10 +128,6 @@ const postSlice = createSlice({
       .addCase(savePost.fulfilled, (state, action) => {
         state.savedPosts.push(action.payload);
       })
-      .addCase(removeSavedPost.fulfilled, (state, action) => {
-        state.savedposts = state.savedposts.filter((post) => post._id !== action.payload);
-      })
-
       .addCase(sendInterest.fulfilled, (state, action) => {
         if (!state.interests) {
           state.interests = []; // Initialize if undefined
