@@ -12,7 +12,7 @@ import AddPost from "./pages/AddPost";
 import Notifications from "./pages/Notifications";
 import EditProfile from "./pages/EditProfile";
 import { requestForToken} from "../src/firebase";
-import axios from 'axios';
+import axios from './api/axios';
 
 
 const App = () => {

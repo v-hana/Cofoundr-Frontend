@@ -6,25 +6,19 @@ const API_URL = "http://localhost:5000/api";
 // Async thunk to send notification
 export const sendNotification = createAsyncThunk(
   "notifications/sendNotification",
-  async (_, { getState, rejectWithValue }) => {
+  async ({ senderId, receiverId, message, postId }, { rejectWithValue }) => {
     try {
-      // Get data from Redux state
-      const state = getState();
-      const currentUser = state.auth.currentUser; // Assuming auth slice holds currentUser
-      const post = state.posts.selectedPost; // Assuming posts slice holds selected post
-      const postOwner = post.owner; // Extracting post owner from post data
-
-      if (!currentUser || !post || !postOwner) {
-        console.error("Required data is missing: currentUser, post, or postOwner");
+      if (!senderId || !receiverId || !message || !postId) {
+        console.error("Required data is missing for notification");
         return rejectWithValue("Required data is missing");
       }
 
       // API call to send notification
       const response = await axios.post(`${API_URL}/send`, {
-        senderId: currentUser.id, // User showing interest
-        receiverId: postOwner.id, // Owner of the post
-        message: `${currentUser.name} is interested in your post`,
-        postId: post._id, // The post related to the interest
+        senderId,
+        receiverId,
+        message,
+        postId,
       });
 
       return response.data;
