@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { savePost, sendInterest, removeSavedPost } from "../redux/postSlice"; // Import notification action
-import {sendNotification } from "../redux/notificationSlice";
+import { sendNotification } from "../redux/notificationSlice";
 import Swal from "sweetalert2";
 const PostCard = ({
   postId,
@@ -9,7 +9,7 @@ const PostCard = ({
   date,
   content,
   image,
-  profileImage,
+  profilePhoto,
   postOwnerId, // Added postOwnerId as a prop
 }) => {
   const dispatch = useDispatch();
@@ -39,37 +39,37 @@ const PostCard = ({
   };
 
   // Handle Send Interest
-const handleSendInterest = () => {
+  const handleSendInterest = () => {
     if (!interestSent) {
-        dispatch(sendInterest({ postId, token }))
-            .unwrap()
-            .then((response) => {
-                if (response?.message === "Interest sent successfully") {
-                    setInterestSent(true);
-                    Swal.fire("Success", "Interest sent successfully!", "success");
+      dispatch(sendInterest({ postId, token }))
+        .unwrap()
+        .then((response) => {
+          if (response?.message === "Interest sent successfully") {
+            setInterestSent(true);
+            Swal.fire("Success", "Interest sent successfully!", "success");
 
-                    // Send a notification to the sender
-                    if (loggedInUserId && postOwnerId) {
-                        dispatch(
-                            sendNotification({
-                                senderId: loggedInUserId,
-                                receiverId: postOwnerId,
-                                message: "Interest sent successfully!",
-                            })
-                        );
-                    }
-                }
-            })
-            .catch((error) => {
-                if (error?.message === "Interest already sent for this post") {
-                    Swal.fire("Info", "Interest already sent for this post!", "info");
-                } else {
-                    console.error("Error sending interest:", error);
-                    Swal.fire("Error", "Failed to send interest", "error");
-                }
-            });
+            // Send a notification to the sender
+            if (loggedInUserId && postOwnerId) {
+              dispatch(
+                sendNotification({
+                  senderId: loggedInUserId,
+                  receiverId: postOwnerId,
+                  message: "Interest sent successfully!",
+                })
+              );
+            }
+          }
+        })
+        .catch((error) => {
+          if (error?.message === "Interest already sent for this post") {
+            Swal.fire("Info", "Interest already sent for this post!", "info");
+          } else {
+            console.error("Error sending interest:", error);
+            Swal.fire("Error", "Failed to send interest", "error");
+          }
+        });
     }
-};
+  };
 
 
   return (
@@ -77,7 +77,7 @@ const handleSendInterest = () => {
       {/* Header */}
       <div className="flex items-center space-x-4 mb-4">
         <img
-          src={profileImage || "https://via.placeholder.com/40"} // Default profile pic
+          src={profilePhoto || "https://via.placeholder.com/40"} // Default profile pic
           alt="Profile"
           className="w-12 h-12 rounded-full"
         />
@@ -105,22 +105,20 @@ const handleSendInterest = () => {
       <div className="flex justify-between items-center mt-4 pt-3">
         <button
           onClick={handleSavePost}
-          className={`${
-            saved
-              ? "text-purple-500 font-bold"
-              : "text-[#010101b8] hover:text-purple-500"
-          } text-sm md:text-base flex items-center`}
+          className={`${saved
+            ? "text-purple-500 font-bold"
+            : "text-[#010101b8] hover:text-purple-500"
+            } text-sm md:text-base flex items-center`}
         >
           <i className="far fa-bookmark mr-2"></i> {saved ? "Saved" : "Save"}
         </button>
 
         <button
           onClick={handleSendInterest}
-          className={`${
-            interestSent
-              ? "text-green-500 font-bold"
-              : "text-[#010101b8] hover:text-purple-500"
-          } text-sm md:text-base flex items-center`}
+          className={`${interestSent
+            ? "text-green-500 font-bold"
+            : "text-[#010101b8] hover:text-purple-500"
+            } text-sm md:text-base flex items-center`}
         >
           <i className="far fa-paper-plane mr-2"></i>{" "}
           {interestSent ? "Interest Sent" : "Send Interest"}

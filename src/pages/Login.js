@@ -38,7 +38,7 @@ const LoginForm = () => {
         </h2>
         <p className="text-[#010101b8] mb-8 text-center">
           Don't have an account yet?{" "}
-          <a href="/signup" className="text-[#6D55B5] underline">
+          <a href="/" className="text-[#6D55B5] underline">
             Sign up
           </a>
         </p>

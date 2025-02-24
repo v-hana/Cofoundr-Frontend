@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { IoNotificationsOutline } from "react-icons/io5";
+import { LuMessageSquareText, LuUsers } from "react-icons/lu";
+import { MdOutlinePostAdd } from "react-icons/md";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
 
   return (
     <>
@@ -12,7 +16,7 @@ const Navbar = () => {
         {/* Profile Icon */}
         <div className="flex items-center">
           <img
-            src="https://via.placeholder.com/40"
+            src={user?.profilePhoto || "https://via.placeholder.com/40"}
             alt="Profile"
             className="w-14 h-14 rounded-full border-4 border-[#BAA7FC2E] transition duration-300 hover:border-purple-500"
             onClick={() => navigate("/user-profile")}
@@ -36,14 +40,14 @@ const Navbar = () => {
             <button className="text-[#010101b8]  text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300" onClick={() => navigate("/notifications")}>
               <IoNotificationsOutline />
             </button>
-            <button className="text-[#010101b8] hover:text-white" onClick={() => navigate("/message")}>
-              <i className="fas fa-envelope w-10 h-10 rounded-full  border-2 border-[#BAA7FC2E] flex justify-center items-center transition duration-300 hover:border-purple-500 hover:text-white"></i>
+            <button className="text-[#010101b8] text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300" onClick={() => navigate("/message")}>
+              <LuMessageSquareText />
             </button >
-            <button className="text-[#010101b8] hover:text-white" onClick={() => navigate("/explore-profiles")}>
-              <i className="fas fa-users w-10 h-10 rounded-full  border-2 border-[#BAA7FC2E] flex justify-center items-center transition duration-300 hover:border-purple-500 hover:text-white"></i>
+            <button className="text-[#010101b8] text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300" onClick={() => navigate("/explore-profiles")}>
+              <LuUsers />
             </button>
-            <button className="text-[#010101b8] hover:text-white" onClick={() => navigate("/add-post")}>
-              <i className="fas fa-plus w-10 h-10 rounded-full  border-2 border-[#BAA7FC2E] flex justify-center items-center transition duration-300 hover:border-purple-500 hover:text-white"></i>
+            <button className="text-[#010101b8] text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300" onClick={() => navigate("/add-post")}>
+              <MdOutlinePostAdd />
             </button>
           </div>
 

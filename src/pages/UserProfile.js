@@ -112,7 +112,7 @@ const UserProfile = () => {
 
               <div className="right-content w-full md:w-1/2">
                 <iframe
-                  src={`https://www.google.com/maps/embed/v1/place?q=${encodeURIComponent(user?.location)}&key=YOUR_GOOGLE_MAPS_API_KEY`}
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(user?.location)}&output=embed`}
                   className="w-full h-48 shadow rounded-lg"
                   style={{ border: 0 }}
                   allowFullScreen=""
