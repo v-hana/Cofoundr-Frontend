@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";  // Import useNavigate for redirection
 import { useForm } from "react-hook-form";
+import { requestForToken } from "../firebase";
 
 const SignupForm = () => {
 
@@ -20,15 +21,23 @@ const SignupForm = () => {
     formState: { errors }, watch
   } = useForm();
 
-  const onSubmit = (data) => {
-    // Dispatch registration action
-    dispatch(registerUser(data)).then((result) => {
-      if (result.type === "auth/registerUser/fulfilled") {
-        // Redirect to login page after successful registration
-        navigate("/login");
-      }
-    });
+  const onSubmit = async (data) => {
+    try {
+      const fcmToken = await requestForToken();
+      console.log("FCM Token on Submit:", fcmToken); // Debugging log
+      const registrationData =await { ...data, fcmToken };
+  console.log(registrationData,'data');
+  
+      dispatch(registerUser(registrationData)).then((result) => {
+        if (result.type === "auth/registerUser/fulfilled") {
+          navigate("/login");
+        }
+      });
+    } catch (error) {
+      console.error("Failed to get FCM token:", error);
+    }
   };
+  
 
   return (
     <div className="flex h-screen bg-[#f6f6f6] text-[#010101] p-2">

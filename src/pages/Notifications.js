@@ -4,11 +4,13 @@ import { requestForToken, onMessageListener } from "../firebase";
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [visibleCount, setVisibleCount] = useState(6);
+  const [token, setToken] = useState()
 
   useEffect(() => {
     const getToken = async () => {
       console.log("tokenee");
       const token = await requestForToken();
+      setToken(token)
     };
     Notification.requestPermission().then((permission) => {
       if (permission === "granted") {

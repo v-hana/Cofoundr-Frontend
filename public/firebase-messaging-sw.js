@@ -4,13 +4,13 @@ importScripts('https://www.gstatic.com/firebasejs/10.4.0/firebase-messaging-comp
 
 // Your Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAx6LWuRTJhyUmC40d3huJ5UohqRF3Whik",
-  authDomain: "pushnotifications-ede6d.firebaseapp.com",
-  projectId: "pushnotifications-ede6d",
-  storageBucket: "pushnotifications-ede6d.firebasestorage.app",
-  messagingSenderId: "967905308980",
-  appId: "1:967905308980:web:ebd44cd8d122ff9cc7b561",
-  measurementId: "G-K5RBPGFC66"
+  apiKey: "AIzaSyCYwQ2G0gyEFrvqZVnGNj8ziGbKpYS9W60",
+  authDomain: "pushnotifications-f2d69.firebaseapp.com",
+  projectId: "pushnotifications-f2d69",
+  storageBucket: "pushnotifications-f2d69.firebasestorage.app",
+  messagingSenderId: "366504581754",
+  appId: "1:366504581754:web:06d2c6ad9ff33ddbe3b9c3",
+  measurementId: "G-NCZM65KK3G"
 };
 
 // Initialize Firebase
