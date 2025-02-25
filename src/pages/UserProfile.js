@@ -37,6 +37,7 @@ const UserProfile = () => {
     }
     const token = localStorage.getItem("token"); // Ensure token is retrieved
     dispatch(removeSavedPost({ postId, token }));
+    dispatch(fetchSavedPosts());
   };
 
   const handleSwipe = (swiperRef, direction) => {

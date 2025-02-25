@@ -14,6 +14,7 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();  // Initialize useNavigate
   const { error, loading } = useSelector((state) => state.auth);
+  const [emailError, setEmailError] = useState("");
 
   const {
     register,
@@ -24,20 +25,26 @@ const SignupForm = () => {
   const onSubmit = async (data) => {
     try {
       const fcmToken = await requestForToken();
-      console.log("FCM Token on Submit:", fcmToken); // Debugging log
-      const registrationData =await { ...data, fcmToken };
-  console.log(registrationData,'data');
-  
+      console.log("FCM Token on Submit:", fcmToken);
+      const registrationData = { ...data, fcmToken };
+
       dispatch(registerUser(registrationData)).then((result) => {
-        if (result.type === "auth/registerUser/fulfilled") {
+        if (registerUser.fulfilled.match(result)) {
           navigate("/login");
+        } else if (registerUser.rejected.match(result)) {
+          const errorMessage = result.payload?.message || "An error occurred. Please try again.";
+          if (errorMessage.includes("Email already exists")) {
+            setEmailError("Email already exists. Please use a different one.");
+          } else {
+            setEmailError(errorMessage);
+          }
         }
       });
     } catch (error) {
       console.error("Failed to get FCM token:", error);
     }
   };
-  
+
 
   return (
     <div className="flex h-screen bg-[#f6f6f6] text-[#010101] p-2">
@@ -145,10 +152,12 @@ const SignupForm = () => {
                 },
               })}
               className="w-full bg-[#fdfdfd] text-black p-2 rounded focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
+              onChange={() => setEmailError("")}
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
             )}
+            {emailError && (<p className="text-red-500 text-sm">{emailError}</p>)}
           </div>
           <div className="relative mb-3">
             <input

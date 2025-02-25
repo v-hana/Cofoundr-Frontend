@@ -16,12 +16,13 @@ export const loginUser = createAsyncThunk("auth/loginUser", async ({ email, pass
 });
 
 // Register User
-export const registerUser = createAsyncThunk("auth/registerUser", async ({ name, email, password ,fcmToken}, { rejectWithValue }) => {
+export const registerUser = createAsyncThunk("auth/registerUser", async ({ name, email, password, fcmToken }, { rejectWithValue }) => {
   try {
-    const response = await axios.post(`${API_URL}/signup`, { name, email, password,fcmToken });
+    const response = await axios.post(`${API_URL}/signup`, { name, email, password, fcmToken });
     return response.data;
   } catch (error) {
-    return rejectWithValue(error.response?.data?.message || "Registration failed");
+    console.error("Register Error:", error.response?.data); // Debugging line
+    return rejectWithValue(error.response?.data || { message: "Registration failed" });
   }
 });
 

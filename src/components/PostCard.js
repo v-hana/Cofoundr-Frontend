@@ -10,7 +10,7 @@ const PostCard = ({
   content,
   image,
   profilePhoto,
-  postOwnerId, // Added postOwnerId as a prop
+  postOwnerId,
 }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token); // Get token from Redux store
@@ -38,39 +38,39 @@ const PostCard = ({
     setSaved(!saved);
   };
 
- // Handle Send Interest
-const handleSendInterest = () => {
-  if (!interestSent) {
-    dispatch(sendInterest({ postId, token }))
-      .unwrap()
-      .then((response) => {
-        if (response?.message === "Interest sent successfully") {
-          setInterestSent(true);
-          Swal.fire("Success", "Interest sent successfully!", "success");
+  // Handle Send Interest
+  const handleSendInterest = () => {
+    if (!interestSent) {
+      dispatch(sendInterest({ postId, token }))
+        .unwrap()
+        .then((response) => {
+          if (response?.message === "Interest sent successfully") {
+            setInterestSent(true);
+            Swal.fire("Success", "Interest sent successfully!", "success");
 
-          // Send a notification to the post owner
-          if (loggedInUserId && postOwnerId) {
-            dispatch(
-              sendNotification({
-                senderId: loggedInUserId,
-                receiverId: postOwnerId,
-                message: "A user has shown interest in your post.",
-                postId: postId,
-              })
-            );
+            // Send a notification to the post owner
+            if (loggedInUserId && postOwnerId) {
+              dispatch(
+                sendNotification({
+                  senderId: loggedInUserId,
+                  receiverId: postOwnerId,
+                  message: "A user has shown interest in your post.",
+                  postId: postId,
+                })
+              );
+            }
           }
-        }
-      })
-      .catch((error) => {
-        if (error?.message === "Interest already sent for this post") {
-          Swal.fire("Info", "Interest already sent for this post!", "info");
-        } else {
-          console.error("Error sending interest:", error);
-          Swal.fire("Error", "Failed to send interest", "error");
-        }
-      });
-  }
-};
+        })
+        .catch((error) => {
+          if (error?.message === "Interest already sent for this post") {
+            Swal.fire("Info", "Interest already sent for this post!", "info");
+          } else {
+            console.error("Error sending interest:", error);
+            Swal.fire("Error", "Failed to send interest", "error");
+          }
+        });
+    }
+  };
 
 
 
