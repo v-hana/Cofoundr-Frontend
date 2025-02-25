@@ -47,6 +47,7 @@ const Home = () => {
             const baseURL = "http://localhost:5000/"; // Change this to match your backend URL
             const imageUrl = post.image ? `${baseURL}${post.image}` : "https://via.placeholder.com/150";
             console.log(imageUrl); // Debugging image URLs
+            console.log(post.userId, 2133);
 
             return (
               <PostCard

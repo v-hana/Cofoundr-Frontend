@@ -1,14 +1,22 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { LuMessageSquareText, LuUsers } from "react-icons/lu";
 import { MdOutlinePostAdd } from "react-icons/md";
+import { fetchUserProfile } from "../redux/userSlice";
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch()
+  console.log(user, 'user');
+  useEffect(() => {
+    dispatch(fetchUserProfile());
+  }, [dispatch]);
 
   return (
     <>

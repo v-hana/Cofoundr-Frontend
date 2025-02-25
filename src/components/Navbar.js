@@ -62,7 +62,7 @@ const Navbar = () => {
           <div className="sm:hidden relative">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="text-white text-2xl focus:outline-none"
+              className="text-[#010101b8] text-2xl focus:outline-none"
             >
               <i className="fas fa-ellipsis-h"></i>
             </button>

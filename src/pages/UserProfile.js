@@ -24,7 +24,6 @@ const UserProfile = () => {
   const savedSwiperRef = useRef(null);
 
 
-
   useEffect(() => {
     dispatch(fetchUserProfile());
     dispatch(fetchSavedPosts());
