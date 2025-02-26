@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile, fetchSavedPosts, removeSavedPost } from "../redux/userSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,7 +6,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { RiArrowLeftDoubleFill } from "react-icons/ri";
+import { RiArrowLeftDoubleFill, RiDeleteBin5Line } from "react-icons/ri";
 import { BiSolidEditAlt } from "react-icons/bi";
 import { BiSolidEdit } from "react-icons/bi";
 import { FaRegBookmark } from "react-icons/fa";
@@ -18,11 +18,18 @@ import "swiper/css/pagination";
 const UserProfile = () => {
   const dispatch = useDispatch();
   const { user, posts = [], savedposts = [], status } = useSelector((state) => state.user);
+  const [expandedSlides, setExpandedSlides] = useState({});
 
 
   const postsSwiperRef = useRef(null);
   const savedSwiperRef = useRef(null);
 
+  const toggleDescription = (slideIndex, swiperType) => {
+    setExpandedSlides((prev) => ({
+      ...prev,
+      [`${swiperType} - ${slideIndex}`]: !prev[`${swiperType} - ${slideIndex}`],
+    }));
+  };
 
   useEffect(() => {
     dispatch(fetchUserProfile());
@@ -38,6 +45,14 @@ const UserProfile = () => {
     dispatch(removeSavedPost({ postId, token }));
     dispatch(fetchSavedPosts());
   };
+
+  const toTitleCase = (str) => {
+    if (!str) return "";
+    return str
+      .toLowerCase()
+      .replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
 
   const handleSwipe = (swiperRef, direction) => {
     if (!swiperRef.current) return;
@@ -96,13 +111,13 @@ const UserProfile = () => {
           {/* Right Info Section */}
           <div className="w-full lg:w-2/3">
             <div className="p-6 md:p-4">
-              <h2 className="text-lg font-semibold mt-4">{user?.name}</h2>
+              <h2 className="text-lg font-semibold mt-4">{toTitleCase(user?.name)}</h2>
               <p className="text-[#7A7685]">{user?.email}</p>
             </div>
             {/* Address & Map */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full gap-6 md:gap-0">
               <div className="p-6 md:p-4">
-                <strong>{user?.location} {user?.location?.country}</strong>
+                <strong>{toTitleCase(user?.location)} {user?.location?.country}</strong>
                 <p className="text-[#7A7685]">
                   {user?.location?.address} <br />
                   {user?.location?.city} {user?.location?.state} {user?.location?.zipCode}
@@ -128,7 +143,7 @@ const UserProfile = () => {
               <strong>Skills</strong>
               <div className="flex flex-wrap gap-4 mt-2">
                 {user?.skills?.map((skill, index) => (
-                  <div key={index} className="px-6 py-2 border border-[#7e012d] text-[#7e012d] rounded-full">{skill}</div>
+                  <div key={index} className="px-6 py-2 border border-[#7e012d] text-[#7e012d] rounded-full">{toTitleCase(skill)}</div>
                 ))}
               </div>
             </div>
@@ -138,7 +153,7 @@ const UserProfile = () => {
               <strong>Preferences</strong>
               <div className="flex flex-wrap gap-4 mt-2">
                 {user?.preferences?.map((preference, index) => (
-                  <div key={index} className="px-6 py-2 border border-[#7e012d] text-[#7e012d] rounded-full">{preference}</div>
+                  <div key={index} className="px-6 py-2 border border-[#7e012d] text-[#7e012d] rounded-full">{toTitleCase(preference)}</div>
                 ))}
               </div>
             </div>
@@ -154,7 +169,7 @@ const UserProfile = () => {
         </div>
 
         {/* Posts Section */}
-        <div className="mt-10">
+        <div className="mt-10 ">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-semibold">Posts</h2>
             <div className="flex gap-2">
@@ -191,18 +206,52 @@ const UserProfile = () => {
               return (
 
                 <SwiperSlide key={index}>
-                  <div className="bg-white rounded-lg shadow-md p-4 relative">
+                  <div className="bg-white rounded-lg shadow-md p-4 relative mb-4">
                     <img
                       src={imageUrl}
                       alt="Post Image"
                       className="w-full h-40 object-cover rounded-lg"
                     />
-                    <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
-                      <BiSolidEdit className=" text-xl" />
-                    </button>
+                    <div className="absolute top-6 right-6 flex gap-2">
+                      {/* Edit Button */}
+                      <button
+                        // onClick={() => handleEditPost(post)}
+                        className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 transition duration-300"
+                      >
+                        <BiSolidEdit />
+                      </button>
 
-                    <p className="text-sm text-[#7A7685] mt-2 mb-2">
-                      {post.content}
+                      {/* Delete Button */}
+                      <button
+                        // onClick={() => handleDeletePost(post._id)}
+                        className="bg-red-500 text-white p-2 rounded hover:bg-red-700 transition duration-300"
+                      >
+                        <RiDeleteBin5Line />
+                      </button>
+                    </div>
+
+                    <p className="text-sm text-[#7A7685] h-[40px] mt-2 mb-2">
+                      {expandedSlides[`main - ${index}`] ? (
+                        <>
+                          {post.content}
+                          <button
+                            onClick={() => toggleDescription(index, "main")}
+                            className="text-blue-400 md:text-sm sm:text-xs max-sm:text-xs inline-block ml-1 hover:underline"
+                          >
+                            Show Less
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          {post.content?.substring(0, 50)}...
+                          <button
+                            onClick={() => toggleDescription(index, "main")}
+                            className="text-blue-400 md:text-sm sm:text-xs max-sm:text-xs inline-block ml-1 hover:underline"
+                          >
+                            Read More
+                          </button>
+                        </>
+                      )}
                     </p>
 
                     <p className="text-xs text-gray-500 absolute bottom-0 right-2 mb-2">
@@ -258,7 +307,7 @@ const UserProfile = () => {
                 console.log(imageUrl);
                 return (
                   < SwiperSlide key={index} >
-                    <div className="bg-white rounded-lg shadow-md p-4 relative">
+                    <div className="bg-white rounded-lg shadow-md p-4 relative mb-4">
                       <img
                         src={imageUrl}
                         alt="Post Image"
@@ -267,7 +316,29 @@ const UserProfile = () => {
                       <button onClick={() => handleRemoveSavedPost(post._id)} className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
                         <FaRegBookmark />
                       </button>
-                      <p className="text-sm text-[#7A7685] mt-2 mb-2">{post.content}</p>
+                      <p className="text-sm text-[#7A7685] mt-2 mb-2">
+                        {expandedSlides[`main - ${index}`] ? (
+                          <>
+                            {post.content}
+                            <button
+                              onClick={() => toggleDescription(index, "main")}
+                              className="text-blue-400 md:text-sm sm:text-xs max-sm:text-xs inline-block ml-1 hover:underline"
+                            >
+                              Show Less
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            {post.content?.substring(0, 50)}...
+                            <button
+                              onClick={() => toggleDescription(index, "main")}
+                              className="text-blue-400 md:text-sm sm:text-xs max-sm:text-xs inline-block ml-1 hover:underline"
+                            >
+                              Read More
+                            </button>
+                          </>
+                        )}
+                      </p>
                       <p className="text-xs text-gray-500 absolute bottom-0 right-2 mb-2">{post.createdAt}</p>
                     </div>
                   </SwiperSlide>

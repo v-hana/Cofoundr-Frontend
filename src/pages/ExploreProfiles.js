@@ -28,7 +28,7 @@ const ProfileCard = ({ profile }) => {
   return (
     <div className="h-full bg-[#fdfdfd] text-white rounded-2xl shadow-lg p-4 border border-[#D9D9D9]">
       <div className="relative flex flex-col items-center mb-4">
-        <div className="w-20 h-20 rounded-full bg-gray-500 border-4 border-[#BAA7FC40]" />
+        <div className="w-20 h-20 rounded-full bg-gray-500 border-4 border-[#BAA7FC40] hover:border-[#7e012d]" />
         <h2 className="md:text-xl sm:text-lg max-sm:text-lg font-semibold text-[#010101]">
           {profile.name}
         </h2>

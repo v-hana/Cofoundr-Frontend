@@ -53,7 +53,7 @@ const Home = () => {
               <PostCard
                 key={post._id}
                 postId={post._id}
-                profileImage={post.userId?.profilePhoto || "/default-profile.png"}
+                profilePhoto={post.userId?.profilePhoto || "/default-profile.png"}
                 name={post.userId?.name || "Unknown User"}
                 date={post.createdAt}
                 content={post.content}
