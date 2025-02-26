@@ -210,7 +210,7 @@ const UserProfile = () => {
                     <img
                       src={imageUrl}
                       alt="Post Image"
-                      className="w-full h-40 object-cover rounded-lg"
+                      className="w-full h-[130px] object-cover rounded-lg"
                     />
                     <div className="absolute top-6 right-6 flex gap-2">
                       {/* Edit Button */}
@@ -230,7 +230,7 @@ const UserProfile = () => {
                       </button>
                     </div>
 
-                    <p className="text-sm text-[#7A7685] h-[40px] mt-2 mb-2">
+                    <p className="text-sm text-[#7A7685] mt-2 mb-2">
                       {expandedSlides[`main - ${index}`] ? (
                         <>
                           {post.content}
@@ -243,7 +243,7 @@ const UserProfile = () => {
                         </>
                       ) : (
                         <>
-                          {post.content?.substring(0, 50)}...
+                          {post.content?.substring(0, 20)}...
                           <button
                             onClick={() => toggleDescription(index, "main")}
                             className="text-blue-400 md:text-sm sm:text-xs max-sm:text-xs inline-block ml-1 hover:underline"
@@ -311,17 +311,17 @@ const UserProfile = () => {
                       <img
                         src={imageUrl}
                         alt="Post Image"
-                        className="w-full h-40 object-cover rounded-lg"
+                        className="w-full h-[130px] object-cover rounded-lg"
                       />
                       <button onClick={() => handleRemoveSavedPost(post._id)} className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
                         <FaRegBookmark />
                       </button>
                       <p className="text-sm text-[#7A7685] mt-2 mb-2">
-                        {expandedSlides[`main - ${index}`] ? (
+                        {expandedSlides[`thumb - ${index}`] ? (
                           <>
                             {post.content}
                             <button
-                              onClick={() => toggleDescription(index, "main")}
+                              onClick={() => toggleDescription(index, "thumb")}
                               className="text-blue-400 md:text-sm sm:text-xs max-sm:text-xs inline-block ml-1 hover:underline"
                             >
                               Show Less
@@ -329,9 +329,9 @@ const UserProfile = () => {
                           </>
                         ) : (
                           <>
-                            {post.content?.substring(0, 50)}...
+                            {post.content?.substring(0, 20)}...
                             <button
-                              onClick={() => toggleDescription(index, "main")}
+                              onClick={() => toggleDescription(index, "thumb")}
                               className="text-blue-400 md:text-sm sm:text-xs max-sm:text-xs inline-block ml-1 hover:underline"
                             >
                               Read More
