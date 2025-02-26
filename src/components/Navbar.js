@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { IoNotificationsOutline } from "react-icons/io5";
+import { IoNotificationsOutline, IoHomeOutline } from "react-icons/io5";
 import { LuMessageSquareText, LuUsers } from "react-icons/lu";
 import { MdOutlinePostAdd } from "react-icons/md";
 import { fetchUserProfile } from "../redux/userSlice";
@@ -25,7 +25,7 @@ const Navbar = () => {
           <img
             src={user?.profilePhoto || "https://via.placeholder.com/40"}
             alt="Profile"
-            className="w-14 h-14 rounded-full border-4 border-[#BAA7FC2E] transition duration-300 hover:border-purple-500"
+            className="w-14 h-14 rounded-full border-4 border-[#BAA7FC2E] transition duration-300 hover:border-[#7e012d]"
             onClick={() => navigate("/user-profile")}
           />
         </div>
@@ -35,7 +35,7 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search..."
-              className="bg-[#f6f6f6] shadow text-[#010101b8] rounded-full  px-10 py-2 transition duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="bg-[#f6f6f6] shadow text-[#010101b8] rounded-full  px-10 py-2 transition duration-300 focus:outline-none focus:ring-2 focus:ring-[#7e012d]"
             />
             <i className="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-[#010101b8]"></i>
           </div>
@@ -44,16 +44,19 @@ const Navbar = () => {
         <div>
           {/* Show all icons above 640px */}
           <div className="hidden sm:flex items-center space-x-4" >
-            <button className="text-[#010101b8]  text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300" onClick={() => navigate("/notifications")}>
+            <button className="text-[#010101b8]  text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:border-[#7e012d] flex justify-center items-center transition duration-300" onClick={() => navigate("/home")}>
+              <IoHomeOutline />
+            </button>
+            <button className="text-[#010101b8]  text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:border-[#7e012d] flex justify-center items-center transition duration-300" onClick={() => navigate("/notifications")}>
               <IoNotificationsOutline />
             </button>
-            <button className="text-[#010101b8] text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300" onClick={() => navigate("/message")}>
+            <button className="text-[#010101b8] text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E]  hover:border-[#7e012d] flex justify-center items-center transition duration-300" onClick={() => navigate("/message")}>
               <LuMessageSquareText />
             </button >
-            <button className="text-[#010101b8] text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300" onClick={() => navigate("/explore-profiles")}>
+            <button className="text-[#010101b8] text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E]  hover:border-[#7e012d] flex justify-center items-center transition duration-300" onClick={() => navigate("/explore-profiles")}>
               <LuUsers />
             </button>
-            <button className="text-[#010101b8] text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E] hover:text-white flex justify-center items-center transition duration-300" onClick={() => navigate("/add-post")}>
+            <button className="text-[#010101b8] text-xl w-10 h-10 rounded-full border-2 border-[#BAA7FC2E]  hover:border-[#7e012d] flex justify-center items-center transition duration-300" onClick={() => navigate("/add-post")}>
               <MdOutlinePostAdd />
             </button>
           </div>
@@ -62,7 +65,7 @@ const Navbar = () => {
           <div className="sm:hidden relative">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="text-white text-2xl focus:outline-none"
+              className="text-[#010101b8] text-2xl focus:outline-none"
             >
               <i className="fas fa-ellipsis-h"></i>
             </button>
@@ -70,20 +73,24 @@ const Navbar = () => {
             {/* Dropdown Menu */}
             {menuOpen && (
               <div className="absolute right-0 mt-2 bg-[#2D2638] rounded-lg shadow-lg p-4 space-y-4 z-10">
-                <button className="flex items-center text-gray-400 hover:text-white">
-                  <i className="fas fa-bell mr-2"></i>
+                <button className="flex items-center gap-2 text-gray-400 hover:text-white">
+                  <IoHomeOutline />
+                  <span>Home</span>
+                </button>
+                <button className="flex items-center gap-2 text-gray-400 hover:text-white">
+                  <IoNotificationsOutline />
                   <span>Notifications</span>
                 </button>
-                <button className="flex items-center text-gray-400 hover:text-white">
-                  <i className="fas fa-envelope mr-2"></i>
+                <button className="flex items-center gap-2 text-gray-400 hover:text-white">
+                  <LuMessageSquareText />
                   <span>Messages</span>
                 </button>
-                <button className="flex items-center text-gray-400 hover:text-white">
-                  <i className="fas fa-users mr-2"></i>
+                <button className="flex items-center gap-2 text-gray-400 hover:text-white">
+                  <LuUsers />
                   <span>Community</span>
                 </button>
-                <button className="flex items-center text-gray-400 hover:text-white">
-                  <i className="fas fa-plus mr-2"></i>
+                <button className="flex items-center gap-2 text-gray-400 hover:text-white">
+                  <MdOutlinePostAdd />
                   <span>Add Post</span>
                 </button>
               </div>

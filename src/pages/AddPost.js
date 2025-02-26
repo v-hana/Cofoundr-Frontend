@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../redux/postSlice";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function AddPost() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -53,7 +54,7 @@ function AddPost() {
 
   return (
     <div className="min-h-screen w-full bg-[#f6f6f6] p-6 rounded-xl shadow-lg text-white">
-      <hr className="border-y border-[#e2e2e2] h-px" />
+
       <h2 className="text-2xl font-semibold mb-4 text-[#010101]">Add New Post</h2>
 
       <form onSubmit={handleSubmit}>
@@ -125,12 +126,15 @@ function AddPost() {
         </div>
 
         <div className="mt-6 flex sm:justify-end justify-center space-x-2">
+
           <button type="submit" className="bg-[#7e012d] border sm:px-6 py-2 px-3 rounded-full text-black hover:bg-gray-500 transition">
             CREATE
           </button>
-          <button type="button" className="border border-[#7e012d] sm:px-6 py-2 px-3 rounded-full text-[#7e012d] font-semibold hover:bg-gray-500 transition">
-            CANCEL
-          </button>
+          <Link to="/home">
+            <button type="button" className="border border-[#7e012d] sm:px-6 py-2 px-3 rounded-full text-[#7e012d] font-semibold hover:bg-gray-500 transition">
+              CANCEL
+            </button>
+          </Link>
         </div>
       </form>
     </div>
