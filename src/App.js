@@ -19,6 +19,8 @@ const App = () => {
   useEffect(() => {
     const saveFcmToken = async () => {
       const token = await requestForToken();
+      console.log(token, 'token');
+      
       if (token) {
         try {
           await axios.post('/api/notifications/save-fcm-token', 

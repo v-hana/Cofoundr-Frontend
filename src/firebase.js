@@ -3,49 +3,46 @@ import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCYwQ2G0gyEFrvqZVnGNj8ziGbKpYS9W60",
-  authDomain: "pushnotifications-f2d69.firebaseapp.com",
-  projectId: "pushnotifications-f2d69",
-  storageBucket: "pushnotifications-f2d69.firebasestorage.app",
-  messagingSenderId: "366504581754",
-  appId: "1:366504581754:web:06d2c6ad9ff33ddbe3b9c3",
-  measurementId: "G-NCZM65KK3G"
+  apiKey: "AIzaSyDZW0if6evJfKeMlZMSEVB-0gI7fscrTcE",
+  authDomain: "pushnotifications-295b8.firebaseapp.com",
+  projectId: "pushnotifications-295b8",
+  storageBucket: "pushnotifications-295b8.firebasestorage.app",
+  messagingSenderId: "548260533010",
+  appId: "1:548260533010:web:58c546e94ceaf98be759cb",
+  measurementId: "G-JJKBCZXKHS",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
+// Request permission and get FCM token
 
-        // Request permission and get FCM token
-
-        export const requestForToken = async () => {
-          try {
-            const fcmToken = await getToken(messaging, { vapidKey: "BGP2rtBkRLgvdQp6-Y_8sRWu7DkUyeOY3dEuCo21M01TEh2CWgA68-2LPpapkZRcOXJt6MJCKpKtz3o2CaP7hfM" });
-            if (fcmToken) {
-              console.log("FCM Token:", fcmToken); // Debugging log
-              return fcmToken;
-            } else {
-              console.warn("No FCM token received.");
-            }
-          } catch (error) {
-            console.error("Failed to get FCM token:", error);
-          }
-          return null; // Return null if token retrieval fails
-        };
+export const requestForToken = async () => {
+  try {
+    const fcmToken = await getToken(messaging, {
+      vapidKey:
+        "BF3FmdDsTcDXNvIZmunTHyZAqpP66xD3QOUOwZk0pT3T5U8IbqL5VmXpHxn7avcAl9hyG3DKcoWRZZ8XaCd0lAU",
+    });
+    if (fcmToken) {
+      console.log("FCM Token:", fcmToken); // Debugging log
+      return fcmToken;
+    } else {
+      console.warn("No FCM token received.");
+    }
+  } catch (error) {
+    console.error("Failed to get FCM token:", error);
+  }
+  return null; // Return null if token retrieval fails
+};
 
 // Handle incoming messages
 export const onMessageListener = () =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {
-      console.log('Message received. ', payload);
+      console.log("Message received. ", payload);
       resolve(payload);
     });
   });
-      
-      export default messaging;
-          
-    
 
-
-    
+export default messaging;
