@@ -92,7 +92,7 @@ function AddPost() {
 
             <div className="flex flex-col md:flex-row items-center w-full">
               {!selectedImage ? (
-                <label className="cursor-pointer bg-[#f6f6f6] sm:px-4 py-2 px-3 rounded-lg text-gray-300 font-semibold hover:bg-purple-500 transition">
+                <label className="cursor-pointer bg-[#f6f6f6] sm:px-4 py-2 px-3 rounded-lg text-gray-300 font-semibold hover:bg-[#7e012d] transition">
                   Upload Image
                   <input
                     type="file"
