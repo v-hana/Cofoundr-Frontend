@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile, fetchSavedPosts, removeSavedPost } from "../redux/userSlice";
+import { editPost, deletePost } from "../redux/postSlice"
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,7 +20,8 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const { user, posts = [], savedposts = [], status } = useSelector((state) => state.user);
   const [expandedSlides, setExpandedSlides] = useState({});
-
+  const [editMode, setEditMode] = useState(null);
+  const [editedContent, setEditedContent] = useState("");
 
   const postsSwiperRef = useRef(null);
   const savedSwiperRef = useRef(null);
@@ -35,6 +37,24 @@ const UserProfile = () => {
     dispatch(fetchUserProfile());
     dispatch(fetchSavedPosts());
   }, [dispatch]);
+
+  const handleEditClick = (post) => {
+    setEditMode(post._id);
+    setEditedContent(post.content);
+  };
+  const handleEditSave = (postId) => {
+    dispatch(editPost({ postId, content: editedContent }))
+      .then(() => {
+        setEditMode(null);
+      })
+      .catch((error) => console.error("Error updating post:", error));
+  };
+
+  const handleDeleteClick = (postId) => {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      dispatch(deletePost(postId));
+    }
+  };
 
   const handleRemoveSavedPost = (postId) => {
     if (!postId) {
@@ -215,7 +235,7 @@ const UserProfile = () => {
                     <div className="absolute top-6 right-6 flex gap-2">
                       {/* Edit Button */}
                       <button
-                        // onClick={() => handleEditPost(post)}
+                        onClick={() => handleEditClick(post)}
                         className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 transition duration-300"
                       >
                         <BiSolidEdit />
@@ -223,7 +243,7 @@ const UserProfile = () => {
 
                       {/* Delete Button */}
                       <button
-                        // onClick={() => handleDeletePost(post._id)}
+                        onClick={() => handleDeleteClick(post._id)}
                         className="bg-red-500 text-white p-2 rounded hover:bg-red-700 transition duration-300"
                       >
                         <RiDeleteBin5Line />

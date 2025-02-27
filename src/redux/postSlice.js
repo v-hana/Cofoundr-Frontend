@@ -60,6 +60,34 @@ export const savePost = createAsyncThunk("posts/savePost", async ({ postId, toke
   return postId;
 });
 
+export const editPost = createAsyncThunk("user/editPost", async ({ postId, content, category, image }, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem("token");
+    const response = await axios.put(
+      `${API_URL}/edit-post/${postId}`,
+      { content, category, image },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response.data.post;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+// Delete a post
+export const deletePost = createAsyncThunk("user/deletePost", async (postId, { rejectWithValue }) => {
+  try {
+    const token = localStorage.getItem("token");
+    await axios.delete(`${API_URL}/delete-post/${postId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return postId;
+  } catch (error) {
+    return rejectWithValue(error.response.data);
+  }
+});
+
+
 // Remove Saved Post
 export const removeSavedPost = createAsyncThunk(
   "posts/removeSavedPost",
@@ -124,6 +152,15 @@ const postSlice = createSlice({
       .addCase(addPost.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload; // Store the error message from API
+      })
+      .addCase(editPost.fulfilled, (state, action) => {
+        const index = state.posts.findIndex((post) => post._id === action.payload._id);
+        if (index !== -1) {
+          state.posts[index] = action.payload;
+        }
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        state.posts = state.posts.filter((post) => post._id !== action.payload);
       })
       .addCase(savePost.fulfilled, (state, action) => {
         state.savedPosts.push(action.payload);
