@@ -111,9 +111,9 @@ function AddPost() {
                     />
                   </div>
                   <div className="flex items-center gap-2 w-full md:w-auto">
-                    <p className="sm:text-xs md:text-sm break-all">{fileName}</p>
+                    <p className="text-black sm:text-xs md:text-sm break-all">{fileName}</p>
                     <button
-                      className="border text-white p-1 rounded-full hover:border-purple-500 transition"
+                      className="border text-black p-1 rounded-full hover:border-[#7e012d] transition"
                       onClick={handleRemoveImage}
                     >
                       <X size={20} />
