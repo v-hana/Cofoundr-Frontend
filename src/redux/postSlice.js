@@ -60,19 +60,35 @@ export const savePost = createAsyncThunk("posts/savePost", async ({ postId, toke
   return postId;
 });
 
-export const editPost = createAsyncThunk("user/editPost", async ({ postId, content, category, image }, { rejectWithValue }) => {
-  try {
-    const token = localStorage.getItem("token");
-    const response = await axios.put(
-      `${API_URL}/edit-post/${postId}`,
-      { content, category, image },
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    return response.data.post;
-  } catch (error) {
-    return rejectWithValue(error.response.data);
+export const editPost = createAsyncThunk(
+  "posts/editPost",
+  async ({ postId, content, category, image, token }, { rejectWithValue }) => {
+    try {
+      const formData = new FormData();
+      formData.append("content", content);
+      formData.append("category", category);
+      if (image) {
+        formData.append("image", image);
+      }
+
+      const response = await axios.put(
+        `http://localhost:5000/api/edit-post/${postId}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      return response.data.post;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to update post");
+    }
   }
-});
+);
+
 
 // Delete a post
 export const deletePost = createAsyncThunk("user/deletePost", async (postId, { rejectWithValue }) => {

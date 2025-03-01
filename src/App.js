@@ -1,4 +1,4 @@
-import React, { useEffect }  from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
@@ -11,8 +11,9 @@ import SingleProfile from "./pages/SingleProfile";
 import AddPost from "./pages/AddPost";
 import Notifications from "./pages/Notifications";
 import EditProfile from "./pages/EditProfile";
-import { requestForToken} from "../src/firebase";
+import { requestForToken } from "../src/firebase";
 import axios from './api/axios';
+import EditPost from "./pages/EditPost";
 
 
 const App = () => {
@@ -20,11 +21,11 @@ const App = () => {
     const saveFcmToken = async () => {
       const token = await requestForToken();
       console.log(token, 'token');
-      
+
       if (token) {
         try {
-          await axios.post('/api/notifications/save-fcm-token', 
-            { fcmToken: token }, 
+          await axios.post('/api/notifications/save-fcm-token',
+            { fcmToken: token },
             {
               headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -52,6 +53,7 @@ const App = () => {
             <Route path="/explore-profiles" element={<ProfileGrid />} />
             <Route path="/single-profile" element={<SingleProfile />} />
             <Route path="/add-post" element={<AddPost />} />
+            <Route path="/edit-post/:postId" element={<EditPost />} />
             <Route path="/notifications" element={<Notifications />} />
             <Route path="/edit-profile" element={<EditProfile />} />
           </Routes>

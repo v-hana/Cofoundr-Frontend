@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { fetchUserProfile, fetchSavedPosts, removeSavedPost } from "../redux/userSlice";
 import { editPost, deletePost } from "../redux/postSlice"
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -18,6 +19,7 @@ import "swiper/css/pagination";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user, posts = [], savedposts = [], status } = useSelector((state) => state.user);
   const [expandedSlides, setExpandedSlides] = useState({});
   const [editMode, setEditMode] = useState(null);
@@ -38,23 +40,24 @@ const UserProfile = () => {
     dispatch(fetchSavedPosts());
   }, [dispatch]);
 
-  const handleEditClick = (post) => {
-    setEditMode(post._id);
-    setEditedContent(post.content);
-  };
-  const handleEditSave = (postId) => {
-    dispatch(editPost({ postId, content: editedContent }))
-      .then(() => {
-        setEditMode(null);
-      })
-      .catch((error) => console.error("Error updating post:", error));
+  const handleEdit = (postId) => {
+    navigate(`/edit-post/${postId}`); // Navigate to the edit page
   };
 
-  const handleDeleteClick = (postId) => {
+
+  const handleDeleteClick = async (postId) => {
     if (window.confirm("Are you sure you want to delete this post?")) {
-      dispatch(deletePost(postId));
+      try {
+        await dispatch(deletePost(postId)).unwrap();
+        // Optimistically update Redux state
+        dispatch(fetchUserProfile()); // Refresh user data
+        dispatch({ type: "user/removePost", payload: postId }); // Manually remove from state
+      } catch (error) {
+        console.error("Error deleting post:", error);
+      }
     }
   };
+
 
   const handleRemoveSavedPost = (postId) => {
     if (!postId) {
@@ -235,7 +238,7 @@ const UserProfile = () => {
                     <div className="absolute top-6 right-6 flex gap-2">
                       {/* Edit Button */}
                       <button
-                        onClick={() => handleEditClick(post)}
+                        onClick={() => handleEdit(post._id)}
                         className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700 transition duration-300"
                       >
                         <BiSolidEdit />
