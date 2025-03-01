@@ -62,56 +62,58 @@ const SignupForm = () => {
           className="h-full rounded-lg"
         >
           <SwiperSlide>
-            <div
-              className="h-full bg-cover bg-center"
-              style={{
-                backgroundImage: "url('https://via.placeholder.com/600')",
-              }}
-            >
-              <div className="absolute inset-0 bg-[#fdfdfd] bg-opacity-50 rounded-lg"></div>
+            <div className="relative flex flex-col items-center justify-center h-full">
+              {/* Image */}
+              <img
+                src="https://i.ibb.co/gbQT3j61/partner.png"
+                alt="Find Your Co-Founder"
+                className="max-w-full max-h-[70%] object-contain"
+              />
+              {/* <div className="absolute inset-0 bg-[#fdfdfd] bg-opacity-50 rounded-lg"></div> */}
               <div className="absolute bottom-10 left-10 z-10">
                 <h1 className="text-3xl font-bold text-black">
-                  Capturing Moments 1
+                  Find Your Perfect Co-Founder
                 </h1>
                 <p className="text-black mt-2">
-                  Create timeless memories with us and share your favorite
-                  moments with the world.
+                  Connect with like-minded entrepreneurs and build something great together.
                 </p>
               </div>
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div
-              className="h-full bg-cover bg-center"
-              style={{
-                backgroundImage: "url('https://via.placeholder.com/601')",
-              }}
-            >
-              <div className="absolute inset-0 bg-[#fdfdfd] bg-opacity-50 rounded-lg"></div>
+            <div className="relative flex flex-col items-center justify-center h-full">
+              {/* Image */}
+              <img
+                src="https://i.ibb.co/pr5GVJYD/business-people-analyzing-lightbulb-competitive-intelligence-environment-information-marketplace-ana.jpg"
+                alt="Turn Ideas Into Reality"
+                className="max-w-full max-h-[70%] object-contain"
+              />
+              {/* <div className="absolute inset-0 bg-[#fdfdfd] bg-opacity-50 rounded-lg"></div> */}
               <div className="absolute bottom-10 left-10 z-10">
                 <h1 className="text-3xl font-bold text-black">
-                  Capturing Moments 2
+                  Turn Ideas Into Reality
                 </h1>
                 <p className="text-black mt-2">
-                  Dive into a world of creativity and unforgettable stories.
+                  Share your startup vision and find the right partner to bring it to life.
                 </p>
               </div>
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div
-              className="h-full bg-cover bg-center"
-              style={{
-                backgroundImage: "url('https://via.placeholder.com/602')",
-              }}
-            >
-              <div className="absolute inset-0 bg-[#fdfdfd] bg-opacity-50 rounded-lg"></div>
+            <div className="relative flex flex-col items-center justify-center h-full">
+              {/* Image */}
+              <img
+                src="https://i.ibb.co/4RM35dg9/realizacao-de-metas-promocao-de-carreira-graduacao-escolar-a-trajetoria-educacional-a-estrategia-de.jpg"
+                alt=" Network, Collaborate, Succeed"
+                className="max-w-full max-h-[70%] object-contain"
+              />
+              {/* <div className="absolute inset-0 bg-[#fdfdfd] bg-opacity-50 rounded-lg"></div> */}
               <div className="absolute bottom-10 left-10 z-10">
                 <h1 className="text-3xl font-bold text-black">
-                  Let’s create something beautiful together.
+                  Network, Collaborate, Succeed
                 </h1>
                 <p className="text-black mt-2">
-                  Let’s create something beautiful together.
+                  Explore profiles, exchange ideas, and grow with the right co-founder.
                 </p>
               </div>
             </div>
@@ -124,7 +126,7 @@ const SignupForm = () => {
         <h2 className="text-3xl font-bold mb-2">Create an account</h2>
         <p className="text-[#010101b8] mb-4">
           Already have an account?{" "}
-          <a href="/login" className="text-[#6D55B5] underline">
+          <a href="/login" className="text-[#6D55B5] underline hover:text-[#7e012d]">
             Login
           </a>
         </p>
@@ -217,7 +219,7 @@ const SignupForm = () => {
           )}
           <button
             type="submit"
-            className="w-full bg-[#7e012d] text-white p-2 rounded hover:bg-gray-600 transition"
+            className="w-full bg-[#7e012d] text-white p-2 rounded hover:bg-gray-600 transition duration-300 "
             disabled={loading}
           >
             {loading ? "Creating Account..." : "Create Account"}
@@ -238,7 +240,7 @@ const SignupForm = () => {
           </button>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 export default SignupForm;

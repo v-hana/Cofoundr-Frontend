@@ -38,7 +38,7 @@ const LoginForm = () => {
         </h2>
         <p className="text-[#010101b8] mb-8 text-center">
           Don't have an account yet?{" "}
-          <a href="/" className="text-[#6D55B5] underline">
+          <a href="/" className="text-[#6D55B5] underline hover:text-[#7e012d]">
             Sign up
           </a>
         </p>
@@ -100,7 +100,7 @@ const LoginForm = () => {
           {error && <p className="text-red-500 mb-4">{error}</p>}
           <button
             type="submit"
-            className="w-full bg-[#7e012d] text-white p-3 rounded hover:bg-indigo-600 transition"
+            className="w-full bg-[#7e012d] text-white p-3 rounded hover:bg-gray-600 transition"
             disabled={loading}
           >
             {loading ? "Logging in..." : "Login"}
@@ -112,7 +112,7 @@ const LoginForm = () => {
           <hr className="w-40 h-px border-[#7A7685]" />
         </div>
         <div>
-          <button className="w-full border-2 border-[#7e012d] text-gray-300 p-3 rounded hover:bg-gray-600 transition flex items-center justify-center space-x-2">
+          <button className="w-full border-2 border-[#7e012d] text-gray-300 p-3 rounded  transition flex items-center justify-center space-x-2">
             <img
               src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png"
               alt="Google"

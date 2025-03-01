@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUserProfile, fetchSavedPosts, removeSavedPost } from "../redux/userSlice";
-import { editPost, deletePost } from "../redux/postSlice"
+import { deletePost } from "../redux/postSlice"
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,8 +22,6 @@ const UserProfile = () => {
   const navigate = useNavigate();
   const { user, posts = [], savedposts = [], status } = useSelector((state) => state.user);
   const [expandedSlides, setExpandedSlides] = useState({});
-  const [editMode, setEditMode] = useState(null);
-  const [editedContent, setEditedContent] = useState("");
 
   const postsSwiperRef = useRef(null);
   const savedSwiperRef = useRef(null);
@@ -108,7 +106,7 @@ const UserProfile = () => {
               <BiSolidEditAlt className="mb-2 text-2xl" />
             </Link>
             <img
-              src={user?.profilePhoto || "https://i.ibb.co/WpXfyPL/Ellipse-2.png"}
+              src={user?.profilePhoto || "https://i.ibb.co/LhY3B8nR/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-illust.jpg"}
               alt="Profile"
               className="w-36 h-36 rounded-full border-8 border-[#7e012d]"
             />

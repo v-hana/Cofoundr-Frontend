@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { savePost, sendInterest, removeSavedPost } from "../redux/postSlice"; // Import notification action
 import { sendNotification } from "../redux/notificationSlice";
 import Swal from "sweetalert2";
@@ -13,6 +14,7 @@ const PostCard = ({
   postOwnerId,
 }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const token = useSelector((state) => state.auth.token); // Get token from Redux store
   const loggedInUserId = useSelector((state) => state.auth.userId); // Get logged-in user ID
   const savedPosts = useSelector((state) => state.posts.savedPosts);
@@ -82,6 +84,7 @@ const PostCard = ({
           src={profilePhoto || "https://via.placeholder.com/40"} // Default profile pic
           alt="Profile"
           className="w-12 h-12 rounded-full"
+          onClick={() => navigate("/single-profile")}
         />
         <div>
           <h3 className="text-lg md:text-xl font-bold text-[#010101]">{name}</h3>
