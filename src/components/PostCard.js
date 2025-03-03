@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { savePost, sendInterest, removeSavedPost } from "../redux/postSlice"; // Import notification action
 import { sendNotification } from "../redux/notificationSlice";
 import Swal from "sweetalert2";
 const PostCard = ({
   postId,
+  userId,
   name,
   date,
   content,
   image,
   profilePhoto,
-  postOwnerId,
+  postOwnerId
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const handleProfileClick = () => {
+    if (userId) {
+      navigate(`/single-profile/${userId}`);
+    } else {
+      console.error("Error: userId is undefined");
+    }
+  };
   const token = useSelector((state) => state.auth.token); // Get token from Redux store
   const loggedInUserId = useSelector((state) => state.auth.userId); // Get logged-in user ID
   const savedPosts = useSelector((state) => state.posts.savedPosts);
@@ -84,7 +92,7 @@ const PostCard = ({
           src={profilePhoto || "https://via.placeholder.com/40"} // Default profile pic
           alt="Profile"
           className="w-12 h-12 rounded-full"
-          onClick={() => navigate("/single-profile")}
+          onClick={handleProfileClick}
         />
         <div>
           <h3 className="text-lg md:text-xl font-bold text-[#010101]">{name}</h3>
@@ -113,7 +121,7 @@ const PostCard = ({
           className={`${saved
             ? "text-purple-500 font-bold"
             : "text-[#010101b8] hover:text-purple-500"
-            } text-sm md:text-base flex items-center`}
+            } text - sm md:text-base flex items-center`}
         >
           <i className="far fa-bookmark mr-2"></i> {saved ? "Saved" : "Save"}
         </button>
@@ -129,7 +137,7 @@ const PostCard = ({
           {interestSent ? "Interest Sent" : "Send Interest"}
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 

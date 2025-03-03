@@ -51,7 +51,7 @@ const App = () => {
             <Route path="/user-profile" element={<UserProfile />} />
             <Route path="/home" element={<Home />} />
             <Route path="/explore-profiles" element={<ProfileGrid />} />
-            <Route path="/single-profile" element={<SingleProfile />} />
+            <Route path="/single-profile/:userId" element={<SingleProfile />} />
             <Route path="/add-post" element={<AddPost />} />
             <Route path="/edit-post/:postId" element={<EditPost />} />
             <Route path="/notifications" element={<Notifications />} />
