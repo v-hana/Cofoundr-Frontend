@@ -16,12 +16,17 @@ const PostCard = ({
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleProfileClick = () => {
-    if (userId) {
-      navigate(`/single-profile/${userId}`);
-    } else {
+
+  const handleProfileClick = (event) => {
+    event.stopPropagation();
+    console.log("clicked userid:", userId);
+
+    if (!userId) {
       console.error("Error: userId is undefined");
+      return;
+
     }
+    navigate(`/single-profile/${userId}`);
   };
   const token = useSelector((state) => state.auth.token); // Get token from Redux store
   const loggedInUserId = useSelector((state) => state.auth.userId); // Get logged-in user ID

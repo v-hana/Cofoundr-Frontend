@@ -4,6 +4,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV, faExternalLinkAlt, faPen, faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
+import { RiMenu3Fill } from "react-icons/ri";
 import { useParams } from "react-router-dom";
 import { fetchProfile } from "../redux/profileSlice";
 import "swiper/css";
@@ -11,7 +12,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 const SingleProfile = () => {
-  const { id } = useParams();
+  const { userId } = useParams();
   const dispatch = useDispatch();
   const { user: profile, posts, loading, error } = useSelector((state) => state.profile);
 
@@ -19,8 +20,11 @@ const SingleProfile = () => {
   const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchProfile(id));
-  }, [dispatch, id]);
+    if (userId) {
+      console.log("Fetching profile for:", userId); // Debugging
+      dispatch(fetchProfile(userId)); // Fetch user profile
+    }
+  }, [dispatch, userId]);
 
   const handleSwipe = (swiperRef, direction) => {
     if (!swiperRef.current) return;
@@ -48,10 +52,10 @@ const SingleProfile = () => {
         {/* Options Button */}
         <div className="absolute top-6 right-6 profile-options-container">
           <button
-            className="text-black hover:text-gray-500 lg:px-20 py-2 sm:px-10 text-lg transform hover:scale-125 transition duration-100"
+            className="text-black hover:text-gray-500 lg:px-18 py-2 sm:px-10 text-xl transform hover:scale-125 transition duration-100"
             onClick={() => setShowOptions(!showOptions)}
           >
-            <FontAwesomeIcon icon={faEllipsisV} size="xl" />
+            <RiMenu3Fill />
           </button>
           {showOptions && (
             <div className="absolute right-0 mt-2 w-48 bg-gray-800 text-white rounded-lg shadow-lg z-50">
@@ -68,7 +72,7 @@ const SingleProfile = () => {
           <img
             src={profile.profilePhoto || "https://i.ibb.co/WpXfyPL/Ellipse-2.png"}
             alt="Profile"
-            className="w-24 h-24 rounded-full border-8 border-[#7e012d]"
+            className="w-24 h-24 rounded-full border-4 border-[#7e012d]"
           />
           <h2 className="text-2xl font-bold">{profile.name}</h2>
           <p className="font-semibold">
@@ -80,7 +84,7 @@ const SingleProfile = () => {
               {profile.location} <FontAwesomeIcon icon={faExternalLinkAlt} />
             </a>
           </p>
-          <p className="text-[#010101b8]">{profile.experience}</p>
+          {/* <p className="text-[#010101b8]">{profile.experience} years</p> */}
         </div>
       </div>
 
@@ -89,7 +93,7 @@ const SingleProfile = () => {
         {[
           { title: "Skills", description: profile.skills?.join(", ") || "N/A" },
           { title: "Preferences", description: profile.preferences?.join(", ") || "N/A" },
-          { title: "Experience", description: profile.experience || "N/A" },
+          { title: "Experience", description: profile.experience ? `${profile.experience} Years` : "N/A" },
         ].map((item, index) => (
           <div key={index} className="relative">
             <div className="w-60 px-6 py-3 rounded-lg flex flex-col items-center justify-center shadow bg-[#fdfdfd]">
@@ -126,16 +130,17 @@ const SingleProfile = () => {
           }}
         >
           {posts.length > 0 ? (
-            posts.map((post, index) => (
-              <SwiperSlide key={index} className="bg-[#fdfdfd] rounded-lg shadow-md p-4 relative">
-                <img src={post.img} alt="" className="w-full h-40 object-cover rounded-lg" />
-                <button className="absolute top-6 right-6 bg-white text-[#2D2638] p-1 rounded hover:bg-[#BAA7FC2E] hover:text-white hover:scale-110 transition duration-300">
-                  <FontAwesomeIcon icon={faPen} />
-                </button>
-                <p className="text-sm text-[#010101b8] mt-2">{post.content}</p>
-                <p className="text-xs text-white absolute bottom-2 right-2">{post.createdAt}</p>
-              </SwiperSlide>
-            ))
+            posts.map((post, index) => {
+              const baseURL = "http://localhost:5000/"; // Change this to match your backend URL
+              const imageUrl = post.image ? `${baseURL}${post.image}` : "https://via.placeholder.com/150";
+              return (
+                <SwiperSlide key={index} className="bg-[#fdfdfd] rounded-lg shadow-md p-4 relative">
+                  <img src={imageUrl} alt="" className="w-full h-40 object-cover rounded-lg" />
+                  <p className="text-sm text-[#010101b8] mt-2 mb-2">{post.content}</p>
+                  <p className="text-xs text-[#010101b8] absolute bottom-2 right-2">{post.createdAt}</p>
+                </SwiperSlide>
+              );
+            })
           ) : (
             <p>No posts available</p>
           )}

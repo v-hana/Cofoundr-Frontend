@@ -5,13 +5,13 @@ import axios from '../api/axios';
 export const fetchProfile = createAsyncThunk(
   'profile/fetchProfile',
   async (userId, { rejectWithValue }) => {
-    if (!userId) return rejectWithValue('Invalid user ID');
-
     try {
-      const { data } = await axios.get(`/api/singleprofile/${userId}`);
+      console.log("API Request for User ID:", userId); // Debugging
+      const { data } = await axios.get(`http://localhost:5000/api/singleprofile/${userId}`);
       return data;
     } catch (error) {
-      return rejectWithValue('Failed to load profile');
+      console.error("Error fetching profile:", error.response?.data || error.message);
+      return rejectWithValue("Failed to load profile");
     }
   }
 );
